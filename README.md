@@ -5,3 +5,5 @@
 * (CP) Upload s4p for via transition
 * (XG) Familiar GitHub
 * (XG) Familiar TeXStudio
+* (XG) Differential amplifier done
+* (XG) CTLE done
