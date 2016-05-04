@@ -46,6 +46,27 @@
 \section{PCB Design}
 \label{sec:pcb_design}
 
+
+
+
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/S_parameter.png}
+	\caption{S parameter of via transition in PCB.}
+	\label{fig:pcb_via_tran_S} % label must put at the last
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/via_transition_smith.png}
+	\caption{Smith chart of $S^{dd}_{11}$ of via transition in PCB.}
+	\label{fig:pcb_via_tran_Sdd11_smith} % label must put at the last
+\end{figure}
+
+Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10GHz. 
+
+
 \section{Bonding Wire Transition}
 \label{sec:bond_wire}
 
@@ -62,12 +83,9 @@
 \label{sec:result}
 
 
-\begin{figure}[htbp!]
-	\centering
-	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/S_parameter.png}
-	\caption{S parameter of via transition in PCB.}
-	\label{fig:pcb_via_tran_S} % label must put at the last
-\end{figure}
+
+
+
 
 
 \section{Conclusion}
