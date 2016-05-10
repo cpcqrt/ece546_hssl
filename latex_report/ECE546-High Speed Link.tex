@@ -13,10 +13,16 @@
 \usepackage[cmintegrals]{newtxmath}
 \usepackage{bm} % optional
 
+
+\usepackage{color} % for marking text
+\newcommand{\highlight}[1]{\Huge\textcolor{red}{#1}\normalsize}
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 \begin{document}
+	
+	
 \setcounter{page}{1}
 \pjheader{}
 
@@ -45,10 +51,53 @@
 
 \section{PCB Design}
 \label{sec:pcb_design}
+Since the target bit rate is quite high (3Gbps), we used one of the low loss substrate to design out PCB. The RO4003 from Rogers company is widely used to design various high frequency circuit \cite{na_ro4003_rogers}. We use PCB of 9 layers to demonstrate our design. Fig.~\ref{fig:pcb_layers} shows the dimensions of each layers. The top and bottom layer are the signal layer, and the rest 7 layers at the middle of the PCB are simulated as ground layer. These ground layers were later connected using grounded vias. Each layer is of 19 mil height, and the thickness of metal is 1 mil.
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/PCB_layer_dimension.png}
+	\caption{Dimension and layers in designated PCB. $r\_via=20 mil$ is the radius of both signal and ground via. The height of each PCB layer is 19 mil, and the thickness of copper is 1 mil. }
+	\label{fig:pcb_layers} % label must put at the last
+\end{figure}
 
 
+\subsection{PCB traces}
+The differential PCB traces are later designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} shows the design parameters to achieve the desired impedance.
+
+\highlight{add the proof of 50/ 100 Ohm traces}
+
+\begin{table}[h]
+	\renewcommand{\arraystretch}{1.3}
+	\caption{Material properties of PCB substrate, RO4003 \cite{na_ro4003_rogers}.}
+	\vskip0.2in
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c |}
+			\hline
+			$\varepsilon_r$ & $\tan\delta$ & $r\_via$ & $h\_pcb$ & $t\_pcb$\\ \hline
+			3.8 & 0.02 & 20 mil & 19 mil & 1 mil\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\label{table:ro4003}			
+\end{table}
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/differential_PCB_2D_CrossSection.png}
+	\caption{Design parameter of PCB traces.}
+	\label{fig:pcb_trace} % label must put at the last
+\end{figure}
 
 
+\subsection{Via transition}
+Since there will be a via transition from top to the bottom of the PCB, the strong discontinuity of this via transition will cause strong reflection, as shown in Fig.~\ref{fig:pcb_layers}. The entire structure, however, can be modeled using quasi-static approach. The via itself can be modeled as lumped resistance and inductance, and the parasitic capacitance distributed around the via to the ground plane surrounded. Fig.~\ref{fig:pcb_via_tran_LC} shows the quasi-static models of via transition. 
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/Via_transition_LC_modeling.png}
+	\caption{Lumped model of via transition in PCB.}
+	\label{fig:pcb_via_tran_LC} % label must put at the last
+\end{figure}
 
 \begin{figure}[htbp!]
 	\centering
@@ -64,7 +113,7 @@
 	\label{fig:pcb_via_tran_Sdd11_smith} % label must put at the last
 \end{figure}
 
-Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10GHz. HAHA
+Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10GHz.
 
 
 \section{Bonding Wire Transition}
