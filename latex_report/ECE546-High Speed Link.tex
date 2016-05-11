@@ -22,8 +22,14 @@
 \newcommand{\highlight}[1]{\Huge\textcolor{red}{#1}\normalsize}
 \newcommand{\defaultfigurewidth}{0.5\columnwidth}
 % --------- fix non-conventional piers command -----------
+% So you can simply use abstract, section, and subsection
+% as used in IEEE papers.
+\newenvironment{abstract}{\begin{piersabstract}}{%
+	\end{piersabstract}\ignorespacesafterend% as suggested above
+}
 \renewcommand{\section}[1]{\psection{#1}}
 \renewcommand{\subsection}[1]{\psubsection{#1}}
+
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -76,9 +82,9 @@
 %---Content of Paper Abstract-----------------------
 \begin{paper}
 	
-\begin{piersabstract}
+\begin{abstract}
 	
-\end{piersabstract}
+\end{abstract}
 %
 \section{Introduction}
 \label{sec:Intro}
@@ -179,8 +185,8 @@ In this paper, we use the vector electric field formulation, combined with both 
 
 % =============  Reference Section ==============
 
-%\bibliographystyle{IEEEtran}
-%\bibliography{IEEEabrv,F:/SoftwarePC/AutoupdateZoteroLibrary}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,F:/SoftwarePC/AutoupdateZoteroLibrary}
 
 %\begin{thebibliography}{99}	
 %
