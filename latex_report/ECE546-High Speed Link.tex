@@ -89,20 +89,22 @@ With desire for faster, low-power integrated
 \section{Introduction}
 In this project, we design and simulate a Gbps differential high speed link with supply voltage at 1.8 V.
 \label{sec:Intro}
+\highlight{Add the clock rate of PCI express 1.0, 2.0 3.0, 4.0. }
 
 \section{System Level Design}
+\label{sec:system}
 The high speed link we built consists of three main subsystems, namely the transmitter (TX) block, the channel block and the receiver (RX) block. Two paths are designed to transmit the bit stream and the clock signal separately. 
 
 In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters? 
 
 The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 22 small blocks. It turns out that there are only three distinct type of structures we need to simulate, namely the PCB trace, the via transition and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
 
-Insert cascade schematics
+\highlight{Insert cascade schematics}
 
 In the RX block, signal path is composed of a transistor level data amplifier to make up for signal loss in the channel, and a decision feedback equalizer (DFE) implemented with Verilog. Whereas the clock path has a transistor level clock amplifier and a Verilog clock deskew block. Decision output from the DFE will be the output for the RX block and the entire high speed link.
 
 To test the system, a random bit stream is generated using the PRBS unit in Cadence Virtuoso and fed into the input of FFE in the TX block. Eye diagrams at the input of channel, input and output of the DFE are plotted to evaluate performance of the high speed link.
-\label{sec:system}
+
 
 \section{Channel Design}
 \label{sec:channel_design}
@@ -220,7 +222,9 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 \label{sec:bond_wire}
 The transition between package and PCB is through using bonding wire. The radius of bonding wire is 25um. 
 
-
+\subsection{Channel Response}
+\label{subsec:channel_response}
+\highlight{Add the channel impulse response and eye diagram at 3Gbps, and 10Gbps. (With inverter, but without the DFE and FFE)}
 
 
 \section{Feed Forward Equalizer}
@@ -228,6 +232,7 @@ The transition between package and PCB is through using bonding wire. The radius
 
 \section{Decision Feedback Equalizer}
 \label{sec:DFE}
+\highlight{Give a short introduction about the designing of DFE (how to design the taps)}
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
