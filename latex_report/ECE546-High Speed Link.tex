@@ -242,12 +242,12 @@ The preliminary result given in Q3D is later imported into HFSS for full-wave si
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/via_transition_smith.png}
-	\caption{Smith chart of $S^{dd}_{11}$ of via transition in PCB. $r\_anti = 75 mil$. }
+	\caption{Smith chart of $S^{dd}_{11}$ of via transition in PCB.}
 	\label{fig:pcb_via_tran_Sdd11_smith} % label must put at the last
 \end{figure}
 
 \subsection{Package Traces}
-Similar procedure described in \ref{subsec:pcb_traces} can also be applied to the designation of traces on packages. The material properties of substrate used in package is described in Table.~\ref{table:material}.  Fig.~\ref{fig:pkg_trace} shows the design parameters to achieve the desired impedance, and Fig.~\ref{fig:pkg_trace_impedance} shows the impedance of the differential line up to 40 GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz.
+Similar procedure described in \ref{subsec:pcb_traces} can also be applied to the designation of traces on packages. The material properties of substrate used in package is described in Table.~\ref{table:material}.  Fig.~\ref{fig:pkg_trace} and Table.~\ref{table:pkg_trace} shows the design parameters to achieve the desired impedance, and Fig.~\ref{fig:pkg_trace_impedance} shows the impedance of the differential line up to 40 GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz.
 
 \begin{figure}[htbp!]
 	\centering
@@ -256,12 +256,29 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 	\label{fig:pkg_trace} % label must put at the last
 \end{figure}
 
+\begin{table}[htbp!]
+	\renewcommand{\arraystretch}{1.3}	
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c | c | c |}
+			\hline
+			Parameters  & Value  & Parameters & Value  & Parameters & Value  & Parameters & Value \\ \hline
+			$W_{PKG}$   & 367 um & $D_{PKG}$  & 3.33 mm& $H_{PKG}$  & 400 um & $T_{PKG}$  & 17 um \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\label{table:pkg_trace}
+	\caption{Design parameter of PCB trace.}
+	\vskip0.2in
+\end{table}
+
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./img/PCB/differential_PKG_2D_impedance.png}
 	\caption{Differential and common impedance of designated PCB traces. Solid: common mode impedance; dash: differential mode impedance.}
 	\label{fig:pkg_trace_impedance} % label must put at the last
 \end{figure}
+
+
 
 \subsection{Bonding Wire Transition}
 \label{sec:bond_wire}
