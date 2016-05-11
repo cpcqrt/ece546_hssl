@@ -265,9 +265,9 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 
 \subsection{Bonding Wire Transition}
 \label{sec:bond_wire}
-The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in \ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to match the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
+The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in \ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to decrease the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
 
-%Fig.~\
+Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and common mode, and \ref{fig:bonding_wire_S_smith} also shows the $S^{dd}_{11}$ and $S^{dd}_{22}$ on Smith chart. It can be observed that the reflection of differential modes from both ports have 0.1 reflection at 3GHz, whereas half the reflection at 10GHz. The high reflection at high frequency is because adding patches can only be affective at low frequency. In \cite{1IWSPI2S2_FikarS_ScholtzAL_2008_100ghz_bandwidth}, removing ground of both package and PCB will achieve better performance. 
 
 \begin{figure*}[htbp!]
 	\centering	
