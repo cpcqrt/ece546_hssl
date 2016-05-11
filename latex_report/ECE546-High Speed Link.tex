@@ -19,7 +19,8 @@
 
 % ================ self-defined command ==================
 \usepackage{color} % for marking text
-\newcommand{\highlight}[1]{\Huge\textcolor{red}{#1}\normalsize}
+\newcommand{\highlight}[1]{\Huge\textcolor{red}{XG : #1}\normalsize}
+\newcommand{\cphighlight}[1]{\Huge\textcolor{blue}{CP : #1}\normalsize}
 \newcommand{\defaultfigurewidth}{0.5\columnwidth}
 % --------- fix non-conventional piers command -----------
 % So you can simply use abstract, section, and subsection
@@ -44,12 +45,12 @@
 \author      {Chang-Pao Chang}
 \affiliation {University of Illinois at Urbana-Champaign}
 \address     {}% optional
-\city        {Boston}
-\postalcode  {}% optional
+\city        {Urbana}
+\postalcode  {61801} % optional
 \country     {USA}
-\phone       {345566}    % optional
-\fax         {233445}    % optional
-\email       {cchang95@uiuc.edu}  % optional
+\phone       {} % optional
+\fax         {} % optional
+\email       {xiouge2@uiuc.com}  % optional
 \misc        { }  % optional
 \nomakeauthor
 %------------------------------------
@@ -174,7 +175,7 @@ Z^{lump}_{diff}\equiv \sqrt{\frac{L_{11} - L_{12}}{C_{11} + \left|C_{12}\right|}
 	\caption{Via transition model for Q3D extraction}
 \end{figure*}
 
-\highlight{Add Q3D preliminary result}
+\cphighlight{Add Q3D preliminary result}
 
 The preliminary result given in Q3D is later imported into HFSS for full-wave simulation. Fig.~\ref{fig:pcb_via_trans_HFSS} shows the structure used in HFSS, and Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10GHz.
 
