@@ -1,0 +1,448 @@
+% --------------------------------------------------------------------
+% LaTeX style file for PIERS Online Papers
+% --------------------------------------------------------------------
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{epsfig}
+\usepackage{multicol}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{pstricks}
+\usepackage{caption2}
+\usepackage{multirow}
+\usepackage{color}
+%\usepackage{times}
+\DeclareGraphicsRule{.jpg}{eps}{.bb}{}
+% ---------------------------------------------------------------------
+
+\typeout{Document Style Option `PIERS Online style Version 1.0'.}
+
+%============================================================
+%--- page format ------
+\setlength   { \paperwidth    } {8.5in}
+\setlength   { \paperheight   } {11in}
+\setlength   { \hoffset       } {-1in}
+\setlength   { \voffset       } {-1in}
+\setlength   { \oddsidemargin } {1in}
+\setlength   { \evensidemargin} {1in}
+\setlength   { \textwidth     } {\paperwidth}
+\setlength   { \textheight    } {\paperheight}
+\newlength   { \bottommargin  }
+\setlength   { \bottommargin  } {0.2in}
+\setlength   { \topmargin     } {0.5in} %1.125in
+\setlength   { \headheight    } {5pt}
+\setlength   { \headsep       } {15pt}
+\setlength   { \footskip      } {25pt}
+
+\addtolength {\textwidth}  {-\oddsidemargin}
+\addtolength {\textwidth}  {-\evensidemargin}
+\addtolength {\textheight} {-\topmargin}
+\addtolength {\textheight} {-\headheight}
+\addtolength {\textheight} {-\headsep}
+\addtolength {\textheight} {-\footskip}
+\addtolength {\textheight} {-\bottommargin}
+\flushbottom
+%============================================================
+
+%============================================================
+\renewcommand{\ps@plain}{%
+  \renewcommand{\@oddhead}{}%
+  \renewcommand{\@evenhead}{}%
+  \renewcommand{\@evenfoot}{\hfil\textrm{\thepage}\hfil}%
+  \renewcommand{\@oddfoot}{\@evenfoot}%
+}
+%- - - - -
+\fancypagestyle{1stpage} {
+    %\fancyhead  [C] {Machine Copy for Proofreading, {\large PIERS O}{\small NLINE},~ {\large V}{\small OL}.~x, ~{\large N}{\small O}.~y,~ 2007}
+    \fancyhead  [C] { }
+
+    \fancyhead  [R] {\bf \thepage}
+
+    \fancyfoot [L] { }
+    \fancyfoot [C] { }
+    \fancyfoot [R] { }
+
+    \renewcommand      {\headrulewidth}{0.4pt}
+    \renewcommand      {\footrulewidth}{0pt}
+}
+%- - - - -
+\fancypagestyle{piers} {
+    \fancyhead         { }
+    \fancyhead  [L]   { }
+    %\fancyhead  [C] {Machine Copy for Proofreading, {\large PIERS O}{\small NLINE},~ {\large V}{\small OL}.~x, ~{\large N}{\small O}.~y,~ 2007}
+    \fancyhead  [C] { }
+    \fancyhead  [R] {\bf \thepage}
+
+    \fancyfoot [L] {}
+    \fancyfoot [C] {}
+    \fancyfoot [R] {}
+  \renewcommand      {\headrulewidth}{0.4pt}
+  \renewcommand      {\footrulewidth}{0pt}
+}
+
+%============================================================
+%--- some newcommands ---
+\def\pr{\protect}
+\def\hh#1{\hspace{#1cm}}
+\def\vv#1{\vspace*{#1}}
+\def\col{&:&}
+\def\pbc#1{\parbox[t]{.9\textwidth}{\begin{center}#1\end{center}}}
+\def\pbl#1{\parbox[t]{.9\textwidth}{#1}}
+%============================================================
+
+%============================================================
+\AtBeginDocument{%
+    \authortitle { }
+    \stateprov   { }
+    \postalcode  { }
+    \phone       { }
+    \fax         { }
+    \email       { }
+    \misc        { }
+    \presentedby { }
+    \mailto      { }
+    \topic   { }
+    \chairman    { }
+    \presentation{ }
+}
+%============================================================
+
+%============================================================
+%---  space for floats - figures and tables ---
+\floatsep 0.9ex plus 0.3ex minus 0.6ex
+\textfloatsep 4ex plus 3ex minus 1.5ex
+\def \textfraction  {0.10}
+\def \floatpagefraction {0.60}
+\def \topfraction       {0.90}
+\def \bottomfraction    {0.90}
+%============================================================
+
+%============================================================
+%--- define title aspects ---
+\date{}
+\def\@titlepr     {}
+\def\@author      {}
+\def\@authorpr    {}
+\def\@authortitle {}
+\def\@affiliation {}
+\def\@affiliationpr {}
+\def\@address     {}
+\def\@city        {}
+\def\@citypr      {}
+\def\@stateprov   {}
+\def\@postalcode  {}
+\def\@country     {}
+\def\@countrypr   {}
+\def\@phone       {}
+\def\@fax         {}
+\def\@email       {}
+\def\@misc        {}
+\def\@topic       {}
+\def\@chairman    {}
+\def\@presentation{}
+\def\@presentedby {}
+\def\@mailto      {}
+\def\@time        {}
+\def\@Snb         {}
+\def\@Stitle      {}
+\def\@Sdate       {}
+\def\@Sday        {}
+\def\@Sampm       {}
+\def\@Sroom       {}
+\def\@Sorg        {}
+\def\@Schair      {}
+\def\@key         {}
+
+\def\@authorname      {{\bf Name        }}
+\def\@affiliationname {{\bf Affiliation }}
+\def\@addressname     {{\bf Address     }}
+\def\@phonename       {{\bf Phone       }}
+\def\@faxname         {{\bf Fax         }}
+\def\@emailname       {{\bf E-mail      }}
+\def\@miscname        {{\bf Misc.       }}
+\def\@presentedbyname {{\bf\small Presenting author:      }}
+\def\@mailtoname      {{\bf\small Corresponding author:   }}
+\def\@topicname       {{\bf\small Suggested topic:        }}
+\def\@chairmanname    {{\bf\small Session chaired by:     }}
+\def\@presentationname{{\bf\small Preferred presentation: }}
+
+\def\@voidkey{\pr -void-}
+\def\title       #1 {\gdef\@title       {\pr #1} }
+\def\titlepr     #1 {\gdef\@titlepr     {\pr #1} }
+\def\author      #1 {\gdef\@author      {\pr #1} }
+\def\authorpr    #1 {\gdef\@authorpr    {\pr #1} }
+\def\authortitle #1 {\gdef\@authortitle {\pr #1} }
+\def\affiliation #1 {\gdef\@affiliation{\pr #1}}
+\def\affiliationpr #1 {\gdef\@affiliationpr{\pr #1}}
+\def\address     #1 {\gdef\@address     {\pr #1} }
+\def\city        #1 {\gdef\@city        {\pr #1} }
+\def\citypr      #1 {\gdef\@citypr      {\pr #1} }
+\def\stateprov   #1 {\gdef\@stateprov   {\pr #1} }
+\def\postalcode  #1 {\gdef\@postalcode  {\pr #1} }
+\def\country     #1 {\gdef\@country     {\pr #1} }
+\def\countrypr   #1 {\gdef\@countrypr   {\pr #1} }
+\def\phone       #1 {\gdef\@phone       {\pr #1} }
+\def\fax         #1 {\gdef\@fax         {\pr #1} }
+\def\email       #1 {\gdef\@email       {\pr #1} }
+\def\misc        #1 {\gdef\@misc        {\pr #1} }
+\def\presentedby #1 {\gdef\@presentedby {\pr #1} }
+\def\mailto      #1 {\gdef\@mailto      {\pr #1} }
+\def\topic       #1 {\gdef\@topic       {\pr #1} }
+\def\chairman    #1 {\gdef\@chairman    {\pr #1} }
+\def\presentation#1 {\gdef\@presentation{\pr #1} }
+\def\time        #1 {\gdef\@time        {\protect #1} }
+\def\Snb         #1 {\gdef\@Snb         {\protect #1} }
+\def\Stitle      #1 {\gdef\@Stitle      {\protect #1} }
+\def\Sday        #1 {\gdef\@Sday        {\protect #1} }
+\def\Sampm       #1 {\gdef\@Sampm       {\protect #1} }
+\def\Sdate       #1 {\gdef\@Sdate       {\protect #1} }
+\def\Sroom       #1 {\gdef\@Sroom       {\protect #1} }
+\def\Sorg        #1 {\gdef\@Sorg        {\protect #1} }
+\def\Schair      #1 {\gdef\@Schair      {\protect #1} }
+\def\key         #1 {\gdef\@key         {\protect #1} }
+%============================================================
+
+%============================================================
+%--- Title output ---
+\setcounter{tocdepth}{0}
+\def\maketitle{\par \@maketitle}
+
+%\renewcommand{\l@chapter}{\@dottedtocline{0}{0em}{0em}}
+
+\def\@maketitle{\newpage
+    %\vspace*{1mm}
+   \begin{center}
+    \vspace*{1mm}
+       \setlength{\baselineskip}{4.0ex} %4.2ex
+   {\Large\bf \@title}
+   \end{center}
+   \vspace{3ex}
+   }
+%============================================================
+
+%============================================================
+% Redefined in simple by QJ, 20060405
+%--- Author output ---
+\def\makeauthor{
+    \vspace{-3.5ex}
+    \par
+    \begin{center}
+        {\bf \@author}      \\
+        {\rm \@affiliation,\ \@country} \\
+    \end{center}
+    \par
+}
+\def\nomakeauthor{}
+%============================================================
+
+%============================================================
+%--- authors definition
+\def\authors{\par
+    \vspace{-6.2mm}
+    \begin{center}
+    }
+\def\endauthors{
+    \end{center}
+    \par
+    \vspace{-4mm}
+ }
+%============================================================
+
+%============================================================
+%%--- Abstract definition
+%\def\abstract{
+%    \par
+%    \setcounter{section}{0}
+%    \setcounter{figure}{0}
+%    \setcounter{table}{0}
+%    \setcounter{equation}{0}
+%    \setcounter{footnote}{0}
+%    \fontsize{10pt}{12pt}\selectfont\vspace*{0ex}
+%    \vspace*{4ex}
+%%   \fontsize{11pt}{13pt}\selectfont\vspace*{0ex}
+%
+%%      \immediate\write10{ \string\dotfill\string\end{minipage}}
+%%      \immediate\write10{ & \thepage \string\\[2ex]}
+%    }
+%\def\endabstract{ }
+%============================================================
+
+%============================================================
+%---Extended Paper's abstract definition
+\newcommand \abstractname{Abstract}
+
+\newenvironment{piersabstract}{%
+      %\vspace{16pt plus3pt minus3pt}
+        \begin{quote}
+        \noindent{\bfseries \abstractname}---\rm\ignorespaces \fontsize{10pt}{11pt}\selectfont
+      }{\end{quote}\vspace{2mm}}
+
+%%============================================================
+%%============================================================
+%\def\piersabstract#1
+%{\begin{quote}
+%\noindent
+%{\bf Abstract}---
+%\fontsize{10pt}{11pt}\bf\selectfont
+%#1
+%\end{quote}
+%}
+%============================================================
+%============================================================
+%---Extended Paper definition
+\def\paper{
+    \par
+    \setcounter{section}{0}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{footnote}{0}
+    \fontsize{11pt}{12pt}\selectfont
+    \vspace*{4ex}
+    }
+\def\endpaper{ }
+%============================================================
+
+
+
+%\renewcommand{\thesection}{}
+%\renewcommand{\section}{\@startsection
+%    {section}
+%    {1}
+%    {-1em}
+%    {\baselineskip}
+%    {3ex}
+%    {\fontsize{11pt}{13pt}\bf\selectfont}
+%    }
+
+%============================================================
+%--- Bibliography definition
+\def\thebibliography#1{\psection*{\small REFERENCES}\list
+ {\arabic{enumi}.}
+ {\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+ \advance\leftmargin\labelsep \usecounter{enumi}}
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+  \parskip -0.7ex plus 0.5ex minus 0ex
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
+%============================================================
+
+%============================================================
+%%--- Index
+%\renewenvironment{theindex}
+%   {\newpage
+%    \addcontentsline{toc}{chapter}{{\bf Author Index}}%
+%    \pagestyle{plain}\let\item\@idxitem
+%    {\LARGE\bfseries Author Index}
+%    \begin{multicols}{3}%[{\LARGE\bfseries Author Index}]
+%    \par\bigskip}%
+%    {\end{multicols}}
+%%============================================================
+
+%============================================================
+%--- Some new commands
+\newcommand{\pinput}[1]{
+    \vspace{-6.2mm}
+    \input{#1}
+    \vspace{-4mm}
+    }
+%============================================================
+
+%============================================================\raggedright\centerline
+%Redefining section
+%\renewcommand{\thesection}{}
+%\renewcommand{\section}{\@startsection
+%    {section}
+%    {1}
+%    {-1em}
+%    {\baselineskip}
+%    {3ex}
+%    {\fontsize{11pt}{13pt}\bf\selectfont}
+%    }
+%\renewcommand{\thesection}{}
+% Redefining equation
+\renewcommand{\theequation}{\@arabic\c@equation}
+
+% Redefining figures
+\renewcommand{\thefigure}{\@arabic\c@figure}
+
+%============================================================
+\def\pierssection#1{
+    \bigskip
+    \begin{center}
+    {\fontsize{16}{16}\selectfont
+     \underline{\bf section #1\rule[-.5ex]{0em}{.5ex}}}
+    \end{center}\medskip
+    \renewcommand*\@dotsep{1}
+}
+%============================================================
+
+%
+% Sections and Subsections
+%
+\let\psectionmark\@gobble
+\let\psubsectionmark\@gobble
+\let\psubsubsectionmark\@gobble
+\let\@afterindenttrue\@afterindentfalse %make the first paragraph noindent
+
+\setcounter{secnumdepth}{3}
+\newcounter{psection}
+\newcommand\psection{\@startsection {psection}{1}{\z@}%
+                   {2ex \@plus 0.2ex \@minus 0.2ex}%
+                   {1ex \@plus.2ex}%
+                   {\reset@font\normalsize\bfseries\raggedright}}
+\newcounter{psubsection}[psection]
+\newcommand\psubsection{\@startsection{psubsection}{2}{\z@}%
+                                  {1ex \@plus 0.2ex \@minus 0.2ex}%
+                                  {0.5ex \@plus .2ex}%
+                                  {\reset@font\normalsize\bfseries}}%
+\newcounter{psubsubsection}[psubsection]
+\newcommand\psubsubsection{\@startsection{psubsubsection}{2}{\z@}%
+                                  {1ex \@plus 0.2ex \@minus 0.2ex}%
+                                  {0.5ex \@plus .2ex}%
+                                  {\reset@font\normalsize\itshape}}%
+\renewcommand\thepsection{\arabic{psection}}
+\renewcommand\thepsubsection{\thepsection.\arabic{psubsection}}
+\renewcommand\thepsubsubsection{\thepsubsection.\arabic{psubsubsection}}
+%\def\@chapapp{Section}
+
+%\newcommand*\psectionmark[1]{} % 这个会用在页眉中，这里设为空
+%\newcommand*\l@psection{\@dottedtocline{2}{2.0em}{2.3em}} % 这个用在目录中
+%\newcommand*\toclevel@psection{2} %这个是 hyperref 用来决定书签层次的
+
+\def\@sect#1#2#3#4#5#6[#7]#8{\ifnum #2>\c@secnumdepth
+     \let\@svsec\@empty\else
+     \refstepcounter{#1}\edef\@svsec{\csname the#1\endcsname. }\fi
+     \@tempskipa #5\relax
+      \ifdim \@tempskipa>\z@
+        \begingroup #6\relax
+             \ifnum #2=1
+             \noindent{\hskip #3\relax\@svsec}{\interlinepenalty \@M \uppercase{#8}\par}%
+          \else
+             \noindent{\hskip #3\relax\@svsec}{\interlinepenalty \@M #8\par}%
+          \fi
+        \endgroup
+       \csname #1mark\endcsname{#7}\addcontentsline
+         {toc}{#1}{\ifnum #2>\c@secnumdepth \else
+                      \protect\numberline{\csname the#1\endcsname}\fi
+                    #7}\else
+        \def\@svsechd{#6\hskip #3\relax  %% \relax added 2 May 90
+                   \@svsec #8\csname #1mark\endcsname
+                      {#7}\addcontentsline
+                           {toc}{#1}{\ifnum #2>\c@secnumdepth \else
+                             \protect\numberline{\csname the#1\endcsname}\fi
+                       #7}}\fi
+     \@xsect{#5}}
+%
+\def\@ssect#1#2#3#4#5{\@tempskipa #3\relax
+   \ifdim \@tempskipa>\z@
+     \begingroup #4\noindent{\hskip #1}{\interlinepenalty \@M #5\par}\endgroup
+   \else \def\@svsechd{#4\hskip #1\relax #5}\fi
+    \@xsect{#3}
+    }
+
+\def\ack{\psection*{\uppercase{Acknowledgment}}}

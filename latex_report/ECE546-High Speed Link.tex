@@ -1,4 +1,7 @@
-\documentclass{pj}
+\documentclass{book}  % fundamental class file is 'book'.
+\usepackage{piers}  % use the file 'piers.sty'.
+\pagestyle{piers}
+
 
 \usepackage{hyperref}
 \usepackage{cite}
@@ -14,36 +17,70 @@
 \usepackage{bm} % optional
 
 
+% ================ self-defined command ==================
 \usepackage{color} % for marking text
 \newcommand{\highlight}[1]{\Huge\textcolor{red}{#1}\normalsize}
+\newcommand{\defaultfigurewidth}{0.5\columnwidth}
+% --------- fix non-conventional piers command -----------
+\renewcommand{\section}[1]{\psection{#1}}
+\renewcommand{\subsection}[1]{\psubsection{#1}}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 \begin{document}
-	
-	
-\setcounter{page}{1}
-\pjheader{}
 
 \title{Design of High Speed Link System}
-%\maketitle
+\maketitle
 
-\newcommand{\defaultfigurewidth}{0.5\columnwidth}
+%=== List of authors (in order) ========
+%-- Author(s) for the first affiliation ---
+\author      {Chang-Pao Chang}
+\affiliation {University of Illinois at Urbana-Champaign}
+\address     {}% optional
+\city        {Boston}
+\postalcode  {}% optional
+\country     {USA}
+\phone       {345566}    % optional
+\fax         {233445}    % optional
+\email       {cchang95@uiuc.edu}  % optional
+\misc        { }  % optional
+\nomakeauthor
+%------------------------------------
 
-\footnote{\hskip-0.12in\textsuperscript{1} Chang-Pao Chang (cchang95@uiuc.edu)}
-\footnote{\hskip-0.12in\textsuperscript{2} Xiou Ge (xiouge2@uiuc.com)}
-\footnote{\hskip-0.12in*\ University of Illinois at Urbana-Champaign, Urbana, Illinois, 61801}
+%=== List of authors (in order) ========
+%-- Author(s) for the second affiliation ---
+\author      {Xiou Ge}
+\affiliation {University of Illinois at Urbana-Champaign}
+\address     {}% optional
+\city        {Urbana}
+\postalcode  {61801} % optional
+\country     {USA}
+\phone       {} % optional
+\fax         {} % optional
+\email       {xiouge2@uiuc.com}  % optional
+\misc        { }  % optional
+\nomakeauthor
+%-------------------------------------
 
-\author{Chang-Pao Chang\textsuperscript{*,1} and Xiou Ge\textsuperscript{*,2}}
+%---Output of Authors----------------------
+\begin{authors}	
+	{\bf Chang-Pao Chang}$^{1}$, {\bf Xiou Ge}$^{2}$\\
+	\medskip
+	$^{1}$cchang95@uiuc.com\\
+	$^{2}$xiouge2@uiuc.com	
+\end{authors}
+%--------------------------
 
 
-
-\begin{abstract}
+%---Content of Paper Abstract-----------------------
+\begin{paper}
 	
-\end{abstract}
+\begin{piersabstract}
+	
+\end{piersabstract}
 %
-\section{introduction}
+\section{Introduction}
 \label{sec:Intro}
 
 \section{System Level Design}
@@ -61,7 +98,7 @@ Since the target bit rate is quite high (3Gbps), we used one of the low loss sub
 \end{figure}
 
 
-\subsection{PCB traces}
+\subsection{PCB Traces}
 The differential PCB traces are later designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} shows the design parameters to achieve the desired impedance.
 
 \highlight{add the proof of 50/ 100 Ohm traces}
@@ -89,7 +126,7 @@ The differential PCB traces are later designed such that the single line impedan
 \end{figure}
 
 
-\subsection{Via transition}
+\subsection{Via Transition}
 Since there will be a via transition from top to the bottom of the PCB, the strong discontinuity of this via transition will cause strong reflection, as shown in Fig.~\ref{fig:pcb_layers}. The entire structure, however, can be modeled using quasi-static approach. The via itself can be modeled as lumped resistance and inductance, and the parasitic capacitance distributed around the via to the ground plane surrounded. Fig.~\ref{fig:pcb_via_tran_LC} shows the quasi-static models of via transition. 
 
 \begin{figure}[htbp!]
@@ -149,6 +186,6 @@ In this paper, we use the vector electric field formulation, combined with both 
 %
 %\end{thebibliography}
 
-
+\end{paper}
 \end{document}
 
