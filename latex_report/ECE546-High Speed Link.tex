@@ -9,7 +9,8 @@
 %\interdisplaylinepenalty=2500 % suggested by IEEE to use with amsmath package
 \usepackage{amsfonts}
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{epstopdf}
 
 \usepackage[T1]{fontenc} % optional
@@ -116,25 +117,38 @@ As for package, we use one layer of thin-film ceramic from Murawa \cite{na_alumi
 
 \begin{table}[h]
 	\renewcommand{\arraystretch}{1.3}
-	\caption{Material properties used for channel design.}
-	\vskip0.2in
 	\begin{center}
-		\begin{tabular}{| l | l | l | l | c | c | c | c | c |}
+		\begin{tabular}{| l | l | l | c | c | c |}
 			\hline
-			Usage   & Substrate  & Trace & Metal Layers & $\varepsilon_r$ & $\tan\delta$ & $r\_via$ & $h\_pcb$ & $t\_pcb$\\ \hline
-			PCB     & RO4003  \cite{na_ro4003_rogers} & Copper & 9 & 3.8 & 0.02 & 20 mil & 19 mil & 1 mil \\ \hline
-			Package & Alumina \cite{na_alumina_substratess} & Copper & 2 & 9.8 & 0.02 & 150um & 200 um & 17 um \\
+			Usage   & Substrate  & Trace & Metal Layers & $\varepsilon_r$ & $\tan\delta$ \\ \hline
+			PCB     & RO4003  \cite{na_ro4003_rogers} & Copper & 9 & 3.8 & 0.02  \\ \hline
+			Package & Alumina \cite{na_alumina_substratess} & Copper & 2 & 9.8 & 0.02 \\
 			\hline
 		\end{tabular}
 	\end{center}
-	\label{table:material}			
+	\label{table:material}
+	\caption{Material properties used for channel design.}
+	\vskip0.2in
 \end{table}
-
 
 \subsection{PCB Traces}
 \label{subsec:pcb_traces}
-The differential PCB traces are designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} shows the design parameters to achieve the desired impedance. The 2D extraction tool, Ansys Q2D is used to analyze and fine-tune the parameters. Fig.~\ref{fig:pcb_trace_impedance} shows the impedance of the differential line up to 40GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz. 
+The differential PCB traces are designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} and Table.~\ref{table:pcb_trace} shows the design parameters to achieve the desired impedance. The 2D extraction tool, Ansys Q2D is used to analyze and fine-tune the parameters. Fig.~\ref{fig:pcb_trace_impedance} shows the impedance of the differential line up to 40GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz. 
 
+\begin{table}[htbp!]
+	\renewcommand{\arraystretch}{1.3}	
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c | c | c |}
+			\hline
+			Parameters  & Value  & Parameters & Value  & Parameters & Value  & Parameters & Value \\ \hline
+			$W_{PCB}$   & 40 mil & $D_{PCB}$  & 80 mil & $H_{PCB}$  & 19 mil & $T_{PCB}$  & 1 mil \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\label{table:pcb_trace}
+	\caption{Design parameter of PCB trace.}
+	\vskip0.2in
+\end{table}
 
 \begin{figure}[htbp!]
 	\centering
@@ -159,7 +173,8 @@ The differential PCB traces are designed such that the single line impedance is 
 
 
 \subsection{Via Transition}
-Since there will be a via transition from top to the bottom of the PCB, the strong discontinuity of this via transition will cause strong reflection, as shown in Fig.~\ref{fig:pcb_layers}. The entire structure, however, can be modeled using quasi-static approach. The via itself can be modeled as lumped resistance and inductance, and the parasitic capacitance distributed around the via to the ground plane surrounded. Fig.~\ref{fig:pcb_via_tran_LC} shows the quasi-static models of via transition. Fig.~\ref{fig:pcb_via_lump} shows the lumped model of via transition of differential line. \\
+\label{subsec:via_tran}
+Since there will be a via transition from top to the bottom of the PCB, the strong discontinuity of this via transition will cause strong reflection, as shown in Fig.~\ref{fig:pcb_layers}. The entire structure, however, can be modeled using quasi-static approach. The via itself can be modeled as lumped resistance and inductance, and the parasitic capacitance distributed around the via to the ground plane surrounded. Fig.~\ref{fig:pcb_via_lump} shows the quasi-static models of via transition, and Fig.~\ref{fig:pcb_via_lump_model} shows the lumped model of via transition of differential line. \\
 
 The 3D quasi-static extraction tool Ansys Q3D \cite{na_ansys_q3d} is used to extract the lumped element of these conductor. Fig.~\ref{fig:pcb_via_tran_Q3D} shows the via transition model for Q3D extraction. Since the structure is symmetry, to lower the reflection, a simple approximation can be used. The lumped differential impedance defined in \ref{eq:pcb_via_tran_lump_diff} is set to be 100 $\Omega$. This can be achieved through adjusting the radius of anti-pad, $r\_anti$ in Fig.~\ref{fig:pcb_layers}.
 
@@ -167,28 +182,57 @@ The 3D quasi-static extraction tool Ansys Q3D \cite{na_ansys_q3d} is used to ext
 Z^{lump}_{diff}\equiv \sqrt{\frac{L_{11} - L_{12}}{C_{11} + \left|C_{12}\right|}} = 100\Omega
 \end{equation}
 
-\begin{figure*}[h]
+\begin{figure*}[htbp!]
 	\centering	
-	\subfigure[Via transition in Q3D]{\includegraphics[width=0.5\textwidth]{./img/PCB/Via_Transition/Q3D_tuned_side.png}}%
-	\subfigure[Via transition in Q3D]{\includegraphics[width=0.5\textwidth]{./img/PCB/Via_Transition/Via_transition_LC_modeling.png}}
-	\subfigure[Lumped Model]{\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/lumped_model.png}}%
-	\caption{Via transition model for Q3D extraction}
+	\begin{minipage}[b]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/Q3D_tuned_side.png}
+		\subcaption{Via transition simulated in Q3D for lumped element extraction.}
+		\label{fig:pcb_via_tran_Q3D}
+	\end{minipage}%
+	\begin{minipage}[b]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/Via_transition_LC_modeling.png}
+		\subcaption{Lumped model of via transition.}
+		\label{fig:pcb_via_lump}
+	\end{minipage}
+	\begin{minipage}[b]{\linewidth}
+		\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/lumped_model.png}
+		\subcaption{Lumped model of via transition.}
+		\label{fig:pcb_via_lump_model}
+	\end{minipage}
+	\caption{Via transition model for Q3D extraction.}	
+	\vskip0.2in	
 \end{figure*}
 
-\cphighlight{Add Q3D preliminary result}
-
+\begin{table}[htbp!]
+	\renewcommand{\arraystretch}{1.3}	
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c | c | c |}
+			\hline
+			Parameters  & Value  & Parameters & Value  \\ \hline
+			$R_{Anti}$  & 75 mil & $R_{Via}$  & 20 mil \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\label{table:pcb_via_tran}
+	\caption{Design parameter of PCB trace.}
+\end{table}
+%
 The preliminary result given in Q3D is later imported into HFSS for full-wave simulation. To eliminate the higher order mode around the discontinuity,  1 inch of microstrips are attached at both end of vias. Fig.~\ref{fig:pcb_via_trans_HFSS} shows the structure used in HFSS, and Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10 GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10 GHz.
 
-\begin{figure*}[h]
-	\centering
-	\subfigure[Tilted view]{\includegraphics[width=0.5\textwidth]{./img/PCB/Via_Transition/View_45_Degree.png}}%
-	\subfigure[Top view]{\includegraphics[width=0.5\textwidth]{./img/PCB/Via_Transition/View_Top.png}}%
-	\label{fig:pcb_via_trans_HFSS}
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[b]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/View_45_Degree.png}
+		\subcaption{Tilted view.}
+	\end{minipage}%
+	\begin{minipage}[b]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{./img/PCB/Via_Transition/View_Top.png}
+		\subcaption{Top view.}
+	\end{minipage}
 	\caption{Via transition simulated in HFSS.}
 \end{figure*}
 
-
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/S_parameter.png}
 	\caption{S parameter of via transition in PCB. $r\_anti = 75 mil$. Solid: S11 and S12 of differential mode; dash: S11 and S12 of common mode.}
@@ -203,7 +247,7 @@ The preliminary result given in Q3D is later imported into HFSS for full-wave si
 \end{figure}
 
 \subsection{Package Traces}
-Similar procedure described in \ref{subsec:pcb_traces} can also be applied to the designation of traces on packages. The material properties of substrate used in package is described in Table.~\ref{table:material}.  Fig.~\ref{fig:pkg_trace} shows the design parameters to achieve the desired impedance, and Fig.~\ref{fig:pkg_trace_impedance} shows the impedance of the differential line up to 40GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz.
+Similar procedure described in \ref{subsec:pcb_traces} can also be applied to the designation of traces on packages. The material properties of substrate used in package is described in Table.~\ref{table:material}.  Fig.~\ref{fig:pkg_trace} shows the design parameters to achieve the desired impedance, and Fig.~\ref{fig:pkg_trace_impedance} shows the impedance of the differential line up to 40 GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz.
 
 \begin{figure}[htbp!]
 	\centering
@@ -221,7 +265,66 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 
 \subsection{Bonding Wire Transition}
 \label{sec:bond_wire}
-The transition between package and PCB is through using bonding wire. The radius of bonding wire is 25um. 
+The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in \ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to match the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
+
+%Fig.~\
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\includegraphics[height=0.4\textheight]{./img/PCB/Bonding_Wire/view-Side.png}
+		\subcaption{Side view. The upper left side is package substrate, which is stacked on the PCB substrate. }
+	\end{minipage}%
+	\vskip0.2in	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\includegraphics[height=0.4\textheight]{./img/PCB/Bonding_Wire/view-Top.png}
+		\subcaption{Top view. The upper side is package substrate. }
+	\end{minipage}
+	\label{fig:bonding_wire_HFSS}
+	\caption{Bonding wire transition simulated in HFSS.}
+\end{figure*}
+
+\begin{table}[h]
+	\renewcommand{\arraystretch}{1.3}	
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c | c | c | c | c |}
+			\hline
+			Parameters  & Value  & Parameters  & Value   & Parameters & Value   & Parameters & Value  \\ \hline
+			$G_{PKG}$   & 800 um & $L_{Gap}$   & 450 um  & $R_{PCB}$  & 20 mil  & $R_{PKG}$  & 20 mil \\ \hline
+			$H_{Wire}$  & 190 um & $L_{Wire}$  & 100 um  & $R_{Wire}$ & 25 um   & $L_{Gap}$  & 450 um \\ \hline
+			$W_{PAD}$   & 367 um & $L_{PAD}$   & 367 um  & $L_{PCB}$  & 10 mm   & $L_{PKG}$  & 6 mm   \\ \hline
+			$W_{1}$     & 851 um & $W_{2}$     & 738 um  & $L_{1}$    & 1653 um & $L_{2}$    & 1625 um   \\ \hline
+		\end{tabular}
+	\end{center}
+	\label{table:bonding_wire_parameter}
+	\caption{Design parameter of bonding wire transition.}
+	\vskip0.2in
+\end{table}
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/PCB/Bonding_Wire/S_param.png}
+	\caption{S parameter of bonding wire transition. Solid: S11 and S12 of differential mode; dash: S11 and S12 of common mode.}
+	\label{fig:bonding_wire_S} % label must put at the last
+\end{figure}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/PCB/Bonding_Wire/Sdd11_smith.png}
+		\subcaption{Smith chart of $S^{dd}_{11}$ of bonding wire. }
+	\end{minipage}%
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/PCB/Bonding_Wire/Sdd22_smith.png}
+		\subcaption{Smith chart of $S^{dd}_{22}$ of bonding wire. }
+	\end{minipage}
+	\label{fig:bonding_wire_S_smith}
+	\caption{Smith chart of Sdd11 and Sdd22 of bonding wire transition.}
+\end{figure*}
 
 \subsection{Channel Response}
 \label{subsec:channel_response}
