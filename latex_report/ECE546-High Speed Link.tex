@@ -73,8 +73,8 @@
 \begin{authors}	
 	{\bf Chang-Pao Chang}$^{1}$, {\bf Xiou Ge}$^{2}$\\
 	\medskip
-	$^{1}$cchang95@uiuc.com\\
-	$^{2}$xiouge2@uiuc.com	
+	$^{1}$cchang95@illinois.edu\\
+	$^{2}$xiouge2@illinois.edu	
 \end{authors}
 %--------------------------
 
@@ -83,13 +83,25 @@
 \begin{paper}
 	
 \begin{abstract}
-	
+With desire for faster, low-power integrated
 \end{abstract}
 %
 \section{Introduction}
+In this project, we design and simulate a Gbps differential high speed link with supply voltage at 1.8 V.
 \label{sec:Intro}
 
 \section{System Level Design}
+The high speed link we built consists of three main subsystems, namely the transmitter (TX) block, the channel block and the receiver (RX) block. Two paths are designed to transmit the bit stream and the clock signal separately. 
+
+In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters? 
+
+The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 22 small blocks. It turns out that there are only three distinct type of structures we need to simulate, namely the PCB trace, the via transition and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
+
+Insert cascade schematics
+
+In the RX block, signal path is composed of a transistor level data amplifier to make up for signal loss in the channel, and a decision feedback equalizer (DFE) implemented with Verilog. Whereas the clock path has a transistor level clock amplifier and a Verilog clock deskew block. Decision output from the DFE will be the output for the RX block and the entire high speed link.
+
+To test the system, a random bit stream is generated using the PRBS unit in Cadence Virtuoso and fed into the input of FFE in the TX block. Eye diagrams at the input of channel, input and output of the DFE are plotted to evaluate performance of the high speed link.
 \label{sec:system}
 
 \section{PCB Design}
