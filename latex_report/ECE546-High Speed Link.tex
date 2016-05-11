@@ -177,7 +177,7 @@ Z^{lump}_{diff}\equiv \sqrt{\frac{L_{11} - L_{12}}{C_{11} + \left|C_{12}\right|}
 
 \cphighlight{Add Q3D preliminary result}
 
-The preliminary result given in Q3D is later imported into HFSS for full-wave simulation. Fig.~\ref{fig:pcb_via_trans_HFSS} shows the structure used in HFSS, and Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10GHz.
+The preliminary result given in Q3D is later imported into HFSS for full-wave simulation. To eliminate the higher order mode around the discontinuity,  1 inch of microstrips are attached at both end of vias. Fig.~\ref{fig:pcb_via_trans_HFSS} shows the structure used in HFSS, and Fig.~\ref{fig:pcb_via_tran_S} shows the S parameter of differential and common mode. The high level of $S^{cc}_{11}$ shows good common mode rejection, around -10dB, below 10GHz, while the $S^{dd}_{11}$ remains below -20dB below 10 GHz. Fig.~\ref{fig:pcb_via_tran_Sdd11_smith} shows the smith chart of $S^{dd}_{11}$. The low reflection of differential mode can be observed that the reflection is below 0.26 with 10 GHz.
 
 \begin{figure*}[h]
 	\centering
@@ -191,7 +191,7 @@ The preliminary result given in Q3D is later imported into HFSS for full-wave si
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./img/PCB/Via_Transition/S_parameter.png}
-	\caption{S parameter of via transition in PCB. $r\_anti = 75 mil$. }
+	\caption{S parameter of via transition in PCB. $r\_anti = 75 mil$. Solid: S11 and S12 of differential mode; dash: S11 and S12 of common mode.}
 	\label{fig:pcb_via_tran_S} % label must put at the last
 \end{figure}
 
