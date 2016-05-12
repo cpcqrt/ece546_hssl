@@ -90,8 +90,13 @@ With desire for faster, low-power integrated
 %
 \section{Introduction}
 In this project, we design and simulate a Gbps differential high speed link with supply voltage at 1.8 V.
-\label{sec:Intro}
-\highlight{Add the clock rate of PCI express 1.0, 2.0 3.0, 4.0. }
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/pcie-4-0-bandwidth.png}
+	\caption{PCI Express Data Rate in Different Generations.}
+\end{figure}
+
 
 \section{System Level Design}
 \label{sec:system}
@@ -101,7 +106,11 @@ In the TX block, signal path is composed of a data transmitter and a feed-forwar
 
 The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 22 small blocks. It turns out that there are only three distinct type of structures we need to simulate, namely the PCB trace, the via transition and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
 
-\highlight{Insert cascade schematics}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/cascade_schematics.png}
+	\caption{Partial ADS Schematics for S-parameter Cascade.}
+\end{figure}
 
 In the RX block, signal path is composed of a transistor level data amplifier to make up for signal loss in the channel, and a decision feedback equalizer (DFE) implemented with Verilog. Whereas the clock path has a transistor level clock amplifier and a Verilog clock deskew block. Decision output from the DFE will be the output for the RX block and the entire high speed link.
 
@@ -344,8 +353,69 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 \end{figure*}
 
 \subsection{Channel Response}
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_differential_eye_3gbp.png}
+		\subcaption{Input Eye Diagram. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_3gbp.png}
+		\subcaption{Output Eye Diagram. }
+	\end{minipage}
+	\caption{Eye diagram at 3 Gbps.}
+\end{figure*}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_transient_response_3gbp.png}
+		\subcaption{Input Transient Response. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_3gbp.png}
+		\subcaption{Output Transient Response. }
+	\end{minipage}
+	\caption{Transient Response at 3 Gbps.}
+\end{figure*}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_differential_eye_20gbp.png}
+		\subcaption{Input Eye Diagram. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_20gbp.png}
+		\subcaption{Output Eye Diagram. }
+	\end{minipage}
+	\caption{Eye diagram at 20 Gbps.}
+\end{figure*}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_transient_response_20gbp.png}
+		\subcaption{Input Transient Response. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
+		\subcaption{Output Transient Response. }
+	\end{minipage}
+	\caption{Transient Response at 20 Gbps.}
+\end{figure*}
 \label{subsec:channel_response}
 \highlight{Add the entire channel response in time      domain and eye diagram at 3Gbps, and 10Gbps. (With inverter, but without the DFE and FFE)}
+
+
 \highlight{Add the entire channel response in frequency domain (using ADS), and show the differential / common mode result. }
 
 \section{Feed Forward Equalizer}
@@ -373,6 +443,8 @@ In this paper, we use the vector electric field formulation, combined with both 
 
 %\begin{thebibliography}{99}	
 %
+Double-speed next-gen version cements PCIe computing power
+http://www.cnet.com/uk/news/double-speed-next-gen-version-cements-pcie-computing-power/
 %\end{thebibliography}
 
 \end{paper}
