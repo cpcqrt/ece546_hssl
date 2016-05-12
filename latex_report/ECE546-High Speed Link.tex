@@ -102,9 +102,9 @@ In this project, we design and simulate a Gbps differential high speed link with
 \label{sec:system}
 The high speed link we built consists of three main subsystems, namely the transmitter (TX) block, the channel block and the receiver (RX) block. Two paths are designed to transmit the bit stream and the clock signal separately. 
 
-In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters? 
+In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters.
 
-The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 22 small blocks. It turns out that there are only three distinct type of structures we need to simulate, namely the PCB trace, the via transition and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
+The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 24 small blocks. It turns out that there are only four distinct type of structures we need to simulate, namely the PCB trace, the via transition, package trace and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
 
 \begin{figure}[htbp!]
 	\centering
@@ -422,8 +422,8 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 \label{sec:FFE}
 
 \section{Decision Feedback Equalizer}
-\label{sec:DFE}
-\highlight{Give a short introduction about the designing of DFE (how to design the taps)}
+Decision feedback equalizer (DFE) is a Finite Impulse Response (FIR) filter based feedback scheme that reduces Intersymbol Interference (ISI). DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can decide postcursors magnitude precisely. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sign. The period between each symbol needs to be multiples of sampling period so that a correct decision can be made.
+
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
