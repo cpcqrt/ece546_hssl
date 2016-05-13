@@ -551,6 +551,45 @@ rxdff after FFE sampling
 \subsection{Decision Feedback Equalizer}
 Decision feedback equalizer (DFE) is a Finite Impulse Response (FIR) filter based feedback scheme that reduces Intersymbol Interference (ISI). DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can decide postcursors magnitude precisely. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sign. The period between each symbol needs to be multiples of sampling period so that a correct decision can be made.
 
+3G:
+coeff:
+\begin{tabular}{|c|c|c|c|c|}\hline
+	$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
+	0.014 &    0.015 &    0.004 &    0.003 &    0.002 \\ \hline 
+\end{tabular}
+
+rx_diff sampled w/o DFE:
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
+\end{tabular}
+
+rx_diff sampled w   DFE
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &  -2  &  -1  &  0  &   1  &   2  &   3  &   4  &   5  &    6   \\ \hline 
+	$V$ & -0.9 & -0.9 & 0.9 & -0.9 & -0.9 & -0.9 & -0.9 & -0.9 & -0.899 \\ \hline 
+\end{tabular}
+
+
+20G:
+coeff:
+\begin{tabular}{|c|c|c|c|c|}\hline
+	$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
+	0.194 &    0.007 &    0.046 &   -0.007 &    0.011 \\ \hline 
+\end{tabular}
+
+rx_diff sampled w/o DFE:
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.898 & -0.898 & 0.901 & -0.705 & -0.892 & -0.854 & -0.906 & -0.889 & -0.905 \\ \hline 
+\end{tabular}
+
+rx_diff sampled w   DFE
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.898 & -0.898 & 0.901 & -0.899 & -0.899 & -0.899 & -0.899 & -0.899 & -0.905 \\ \hline 
+\end{tabular}
+
 \cphighlight{Add predicted output of FFE + DFE}
 \cphighlight{RX : Terminal, Diff}
 \cphighlight{RXe: Terminal, Diff}
