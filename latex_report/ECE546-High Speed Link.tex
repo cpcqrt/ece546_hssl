@@ -438,25 +438,29 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
-<<<<<<< HEAD
-=======
 
 3G: coeff.
 \begin{tabular}{|c|c|c|}\hline
 	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
 	0.000 &   -0.001 &    1.016 \\ \hline 
+	\label{table:3G_FFE_coeff}
+	\caption{Coefficient of FFE with 3Gbps input.}
 \end{tabular}
 
 3G: rxdff before FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 	$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
+	\label{table:3G_rxdiff_sample_wo_FFE}
+	\caption{Sampling signal of received differential w/o FFE.}
 \end{tabular}
 
 3G: rxdff after FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 	n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
+	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
+	\label{table:3G_rxdiff_sample_w__FFE} 
+	
 \end{tabular}
 
 
@@ -494,19 +498,22 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 coeff.
 \begin{tabular}{|c|c|c|}\hline
 	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-	0.146 &   -0.558 &    1.599 \\ \hline 
+	0.146 &   -0.558 &    1.599 \\ \hline
+	\label{table:20G_FFE_coeff} 
 \end{tabular}
 
 rxdff before FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 	$V$ & -0.867 & -0.503 & 0.269 & -0.775 & -0.885 & -0.872 & -0.901 & -0.894 & -0.902 \\ \hline 
+	\label{table:20G_rxdiff_sample_wo_FFE}
 \end{tabular}
 
 rxdff after FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 	$V$ & -0.898 & -0.898 & 0.901 & -0.705 & -0.892 & -0.854 & -0.906 & -0.889 & -0.905 \\ \hline 
+	\label{table:20G_rxdiff_sample_w__FFE}
 \end{tabular}
 
 \begin{figure*}[htbp!]
@@ -543,11 +550,18 @@ rxdff after FFE sampling
 >>>>>>> 4a3e07546311144e0cae688b196e75e023739261
 
 \section{Decision Feedback Equalizer}
-Decision feedback equalizer (DFE) is a Finite Impulse Response (FIR) filter based feedback scheme that reduces Intersymbol Interference (ISI). DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can decide postcursors magnitude precisely. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sign. The period between each symbol needs to be multiples of sampling period so that a correct decision can be made.
+Decision feedback equalizer (DFE) is a finite impulse response (FIR) filter based feedback scheme that reduces intersymbol Interference (ISI). The DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can predict the magnitude of postcursors and substract it \cbhighlight{find word previously}. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sig. 
+%
+\begin{}equation}
+c_i = V_d^{Rx}[n] - V_d^{Rx}[\infty], n=1,2,...,5
+\label{eq:DFE_tap_design_formula},
+\end{equation}
+%
+where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FFE enabled. Since there might be DC locc in the channel, the base level, or the steady state of the differential signal may not be exactly -0.9V and thus $V_d^{Rx}[\infty]$, the steady state of the received differential signal must be substracted before using \ref{eq:DFE_tap_design_formula}. The sampling rate of DFE is the same to the system clock rate.
 
-<<<<<<< HEAD
 =======
 3G:
+delay: 
 coeff:
 \begin{tabular}{|c|c|c|c|c|}\hline
 	$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -568,6 +582,7 @@ rx_diff sampled w   DFE
 
 
 20G:
+delay: 4.20ns
 coeff:
 \begin{tabular}{|c|c|c|c|c|}\hline
 	$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -589,7 +604,6 @@ rx_diff sampled w   DFE
 \cphighlight{Add predicted output of FFE + DFE}
 \cphighlight{RX : Terminal, Diff}
 \cphighlight{RXe: Terminal, Diff}
->>>>>>> 4a3e07546311144e0cae688b196e75e023739261
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
