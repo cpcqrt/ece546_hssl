@@ -436,12 +436,28 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 
 \highlight{Add the entire channel response in frequency domain (using ADS), and show the differential / common mode result. }
 
-\section{Feed Forward Equalizer}
-\label{sec:FFE}
+\section{Equalizer Design}
+To further boost the performance of our high speed link, we add 
 
-\section{Decision Feedback Equalizer}
+\highlight{Add some description on why we need FFE and DFE equalizers}
+
+\cphighlight{Add reference to MATLAB}
+We first use MATLAB to design the DFE and FFE, then validate our results in Sec.~\ref{sec:result}. 
+
+
+\subsection{Feed Forward Equalizer}
+\label{sec:FFE}
+\cphighlight{Add predicted output of FFE}
+\cphighlight{TX : Terminal, Diff}
+\cphighlight{RX : Terminal, Diff}
+
+
+\subsection{Decision Feedback Equalizer}
 Decision feedback equalizer (DFE) is a Finite Impulse Response (FIR) filter based feedback scheme that reduces Intersymbol Interference (ISI). DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can decide postcursors magnitude precisely. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sign. The period between each symbol needs to be multiples of sampling period so that a correct decision can be made.
 
+\cphighlight{Add predicted output of FFE + DFE}
+\cphighlight{RX : Terminal, Diff}
+\cphighlight{RXe: Terminal, Diff}
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
@@ -449,6 +465,7 @@ Decision feedback equalizer (DFE) is a Finite Impulse Response (FIR) filter base
 \section{Result}
 \label{sec:result}
 
+\cphighlight{Add Eyes of 1) pure channel, 2) with FFE, 3) with DFE}
 
 
 \section{Conclusion}
