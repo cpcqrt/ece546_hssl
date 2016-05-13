@@ -402,12 +402,12 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_transient_response_20gbp.png}
+		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/input_transient_response_20gbp.png}
 		\subcaption{Input Transient Response. }
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
+		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
 		\subcaption{Output Transient Response. }
 	\end{minipage}
 	\caption{Transient Response at 20 Gbps.}
@@ -429,6 +429,102 @@ We first use MATLAB to design the DFE and FFE, then validate our results in Sec.
 
 \subsection{Feed Forward Equalizer}
 \label{sec:FFE}
+
+3G: coeff.
+\begin{tabular}{|c|c|c|}\hline
+	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+	0.000 &   -0.001 &    1.016 \\ \hline 
+\end{tabular}
+
+3G: rxdff before FFE sampling
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
+\end{tabular}
+
+3G: rxdff after FFE sampling
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
+\end{tabular}
+
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_sampling.png}
+		\subcaption{}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/1.png}
+		\subcaption{}
+	\end{minipage}
+\end{figure*}	
+\begin{figure*}[htbp!]	
+	\ContinuedFloat
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff.png}
+		\subcaption{}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2.png}
+		\subcaption{}
+	\end{minipage}
+	\caption{Transient Response at 3 Gbps.}
+\end{figure*}
+
+20G: 
+
+
+coeff.
+\begin{tabular}{|c|c|c|}\hline
+	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+	0.146 &   -0.558 &    1.599 \\ \hline 
+\end{tabular}
+
+rxdff before FFE sampling
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.867 & -0.503 & 0.269 & -0.775 & -0.885 & -0.872 & -0.901 & -0.894 & -0.902 \\ \hline 
+\end{tabular}
+
+rxdff after FFE sampling
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.898 & -0.898 & 0.901 & -0.705 & -0.892 & -0.854 & -0.906 & -0.889 & -0.905 \\ \hline 
+\end{tabular}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_sampling.png}
+		\subcaption{Sampled received differential channel response w/o FFE.}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/1.png}
+		\subcaption{Differential signal before channel w/ and w/o FFE.}
+	\end{minipage}%
+\end{figure*}	
+\begin{figure*}[htbp!]	
+	\ContinuedFloat
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff.png}
+		\subcaption{Received differential channel response w/o or w/o FFE.}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2.png}
+		\subcaption{Differential signal after channel w/ and w/o FFE.}
+	\end{minipage}%
+	\caption{Transient Response at 3 Gbps.}
+\end{figure*}
 \cphighlight{Add predicted output of FFE}
 \cphighlight{TX : Terminal, Diff}
 \cphighlight{RX : Terminal, Diff}
