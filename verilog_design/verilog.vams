@@ -1,0 +1,44 @@
+//Verilog-AMS HDL for "ECE546", "ffe_sampler" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ns/1fs
+
+module ffe_sampler(clk, Din, Vo);
+input  clk, Din;
+output Vo;
+
+wire clk, Din; // input of clk signal and Din, both are input digital signal
+
+electrical Vo;
+
+
+parameter trf = 30e-12; // rising and falling time in s , e.g. 30ps = 30e-12
+parameter VDD = 1.8;    // VDD in volts
+
+parameter real tan2 = 0.0;
+parameter real tan1 = 0.0;
+parameter real tan0 = 1.0;
+
+reg[2:0] Din_history;
+
+
+initial begin
+	Vo_old = 0;
+end
+
+analog begin	
+	V(Vo)  <+ transition(Vo_new, Vo_new, trf, trf);	
+	Vo_new = Din_history[2]*tan2 + Din_history[1]*tan1 + Din_history[0]*tan0;
+end 
+
+
+always @(posedge(clk)) begin
+	Vo_old = Vo_new;
+	
+// 	V(Vo)     <+ V(in    )*tap0 + V(in    )*tap1 + 
+// 	V(Vob) <+ V(in_bar)*tap0 + 
+end
+
+
+endmodule
