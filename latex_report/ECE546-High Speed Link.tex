@@ -135,7 +135,7 @@ To test the system, a random bit stream is generated using the PRBS unit in Cade
 
 Since the target bit rate is quite high (3Gbps), we used one of the low loss substrate to design our PCB. The RO4003 from Rogers company is widely used to design various high frequency circuit \cite{na_ro4003_rogers}. We use PCB of 9 layers of metal. Fig.~\ref{fig:pcb_layers} shows the dimensions of each layers. The top and bottom layer are the signal layer, and the rest 7 layers at the middle of the PCB are simulated as ground layer. These ground layers were later connected using grounded vias. Each layer is of 19 mil height, and the thickness of metal is 1 mil. \\
 
-As for package, we use one layer of thin-film ceramic from Murawa \cite{na_alumina_substratess}. The substrate is far more thinner than those used in PCB. Table.~\ref{table:material} shows the material properties used for PCB and package.
+As for package, we use one layer of thin-film ceramic from Murawa \cite{na_alumina_substrates}. The substrate is far more thinner than those used in PCB. Table.~1 shows the material properties used for PCB and package.
 
 \begin{table}[h]
 	\renewcommand{\arraystretch}{1.3}
@@ -144,20 +144,20 @@ As for package, we use one layer of thin-film ceramic from Murawa \cite{na_alumi
 			\hline
 			Usage   & Substrate  & Trace & Metal Layers & $\varepsilon_r$ & $\tan\delta$ \\ \hline
 			PCB     & RO4003  \cite{na_ro4003_rogers} & Copper & 9 & 3.8 & 0.02  \\ \hline
-			Package & Alumina \cite{na_alumina_substratess} & Copper & 2 & 9.8 & 0.02 \\
+			Package & Alumina \cite{na_alumina_substrates} & Copper & 2 & 9.8 & 0.02 \\
 			\hline
 		\end{tabular}
-	\end{center}
-	\label{table:material}
+	\end{center}	
 	\caption{Material properties used for channel design.}
-	\vskip0.2in
+	\label{table:material}
 \end{table}
  
 \subsection{PCB Traces}
 \label{subsec:pcb_traces}
-The differential PCB traces are designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} and Table.~\ref{table:pcb_trace} shows the design parameters to achieve the desired impedance. The 2D extraction tool, Ansys Q2D is used to analyze and fine-tune the parameters. Fig.~\ref{fig:pcb_trace_impedance} shows the impedance of the differential line up to 40GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz. 
+The differential PCB traces are designed such that the single line impedance is 50 $\Omega$, and the differential impedance is 100 $\Omega$. Fig.~\ref{fig:pcb_trace} and Table.~2 shows the design parameters to achieve the desired impedance. The 2D extraction tool, Ansys Q2D is used to analyze and fine-tune the parameters. Fig.~\ref{fig:pcb_trace_impedance} shows the impedance of the differential line up to 40GHz. It shows that the differential impedance is 96$\Omega$ while the common impedance is 25$\Omega$ at 10GHz. 
 
 \begin{table}[htbp!]
+	\label{table:pcb_trace}
 	\renewcommand{\arraystretch}{1.3}	
 	\begin{center}
 		\begin{tabular}{| c | c | c | c | c | c | c | c |}
@@ -167,9 +167,7 @@ The differential PCB traces are designed such that the single line impedance is 
 			\hline
 		\end{tabular}
 	\end{center}
-	\label{table:pcb_trace}
 	\caption{Design parameter of PCB trace.}
-	\vskip0.2in
 \end{table}
 
 \begin{figure}[htbp!]
@@ -252,6 +250,7 @@ The preliminary result given in Q3D is later imported into HFSS for full-wave si
 		\subcaption{Top view.}
 	\end{minipage}
 	\caption{Via transition simulated in HFSS.}
+	\label{fig:pcb_via_trans_HFSS}
 \end{figure*}
 
 \begin{figure}[htbp!]
@@ -287,9 +286,8 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 			$W_{PKG}$   & 367 um & $D_{PKG}$  & 3.33 mm& $H_{PKG}$  & 400 um & $T_{PKG}$  & 17 um \\
 			\hline
 		\end{tabular}
-	\end{center}
-	\label{table:pkg_trace}
-	\caption{Design parameter of PCB trace.}
+	\end{center}	
+	\caption{Design parameter of PCB trace.}\label{table:pkg_trace}
 	\vskip0.2in
 \end{table}
 
@@ -304,9 +302,9 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 
 \subsection{Bonding Wire Transition}
 \label{sec:bond_wire}
-The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in \ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to decrease the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
+The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in Sec.\ref{subsec:via_tran}, the lumped model shown in Fig.~\ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to decrease the differential impedance. Same equation in (\ref{eq:pcb_via_tran_lump_diff}) can also be applied here. 
 
-Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and common mode, and \ref{fig:bonding_wire_S_smith} also shows the $S^{dd}_{11}$ and $S^{dd}_{22}$ on Smith chart. It can be observed that the reflection of differential modes from both ports have 0.1 reflection at 3GHz, whereas half the reflection at 10GHz. The high reflection at high frequency is because adding patches can only be affective at low frequency. In \cite{1IWSPI2S2_FikarS_ScholtzAL_2008_100ghz_bandwidth}, removing ground of both package and PCB will achieve better performance. 
+Fig.~\ref{fig:bonding_wire_S} shows the S parameter of both differential and common mode, and Fig.\ref{fig:bonding_wire_S_smith} also shows the $S^{dd}_{11}$ and $S^{dd}_{22}$ on Smith chart. It can be observed that the reflection of differential modes from both ports have 0.1 reflection at 3GHz, whereas half the reflection at 10GHz. The high reflection at high frequency is because adding patches can only be affective at low frequency. In \cite{1IWSPI2S2_FikarS_ScholtzAL_2008_100ghz_bandwidth}, removing ground of both package and PCB will achieve better performance. 
 
 \begin{figure*}[htbp!]
 	\centering	
@@ -320,9 +318,8 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 		\centering	
 		\includegraphics[height=0.4\textheight]{./img/PCB/Bonding_Wire/view-Top.png}
 		\subcaption{Top view. The upper side is package substrate. }
-	\end{minipage}
-	\label{fig:bonding_wire_HFSS}
-	\caption{Bonding wire transition simulated in HFSS.}
+	\end{minipage}	
+	\caption{Bonding wire transition simulated in HFSS.}\label{fig:bonding_wire_HFSS}
 \end{figure*}
 
 \begin{table}[h]
@@ -336,9 +333,8 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 			$W_{PAD}$   & 367 um & $L_{PAD}$   & 367 um  & $L_{PCB}$  & 10 mm   & $L_{PKG}$  & 6 mm   \\ \hline
 			$W_{1}$     & 851 um & $W_{2}$     & 738 um  & $L_{1}$    & 1653 um & $L_{2}$    & 1625 um   \\ \hline
 		\end{tabular}
-	\end{center}
-	\label{table:bonding_wire_parameter}
-	\caption{Design parameter of bonding wire transition.}
+	\end{center}	
+	\caption{Design parameter of bonding wire transition.}\label{table:bonding_wire_parameter}
 	\vskip0.2in
 \end{table}
 
@@ -360,9 +356,8 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 		\centering	
 		\includegraphics[width=\textwidth]{./img/PCB/Bonding_Wire/Sdd22_smith.png}
 		\subcaption{Smith chart of $S^{dd}_{22}$ of bonding wire. }
-	\end{minipage}
-	\label{fig:bonding_wire_S_smith}
-	\caption{Smith chart of Sdd11 and Sdd22 of bonding wire transition.}
+	\end{minipage}	
+	\caption{Smith chart of Sdd11 and Sdd22 of bonding wire transition.}\label{fig:bonding_wire_S_smith}
 \end{figure*}
 
 \begin{figure*}[htbp!]
@@ -543,9 +538,8 @@ One of the FIR equalizer usually used is FFE. Since the FFE needs the "future" d
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 			$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
-		\end{tabular} 
-		\label{table:3G_rxdiff_sample_wo_FFE}
-		\subcaption{Sampled signal of received differential w/o FFE.}
+		\end{tabular} 		
+		\subcaption{Sampled signal of received differential w/o FFE.}\label{table:3G_rxdiff_sample_wo_FFE}
 	\end{minipage}	
 	\begin{minipage}[tb]{\textwidth}
 		\centering	
@@ -553,8 +547,7 @@ One of the FIR equalizer usually used is FFE. Since the FFE needs the "future" d
 			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 			$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
 		\end{tabular}
-		\label{table:3G_rxdiff_sample_w__FFE} 
-		\subcaption{Sampled signal of received differential with FFE.}
+		\subcaption{Sampled signal of received differential with FFE.}\label{table:3G_rxdiff_sample_w__FFE} 
 	\end{minipage}
 	\caption{FFE Coefficient and Effect of Equalization at 3 Gb/s}
 \end{figure*}
@@ -577,9 +570,8 @@ One of the FIR equalizer usually used is FFE. Since the FFE needs the "future" d
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 			$V$ & -0.867 & -0.503 & 0.269 & -0.775 & -0.885 & -0.872 & -0.901 & -0.894 & -0.902 \\ \hline 
-		\end{tabular}
-		\label{table:20G_rxdiff_sample_wo_FFE}
-		\subcaption{Sampling signal of received differential w/o FFE.}
+		\end{tabular}		
+		\subcaption{Sampling signal of received differential w/o FFE.}\label{table:20G_rxdiff_sample_wo_FFE}
 	\end{minipage}	
 	\begin{minipage}[tb]{\textwidth}
 		\centering	
@@ -587,8 +579,7 @@ One of the FIR equalizer usually used is FFE. Since the FFE needs the "future" d
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 			$V$ & -0.898 & -0.898 & 0.901 & -0.705 & -0.892 & -0.854 & -0.906 & -0.889 & -0.905 \\ \hline 
 		\end{tabular}
-		\label{table:20G_rxdiff_sample_w__FFE} 
-		\subcaption{Sampling signal of received differential with FFE.}
+		\subcaption{Sampling signal of received differential with FFE.}\label{table:20G_rxdiff_sample_w__FFE} 
 	\end{minipage}
 	\caption{FFE Coefficient and Effect of Equalization at 20 Gb/s}
 \end{figure*}
@@ -607,7 +598,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 
 \begin{figure*}
 	\centering	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|}\hline
 			$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -617,7 +608,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\subcaption{Coefficient of DFE with 3Gb/s input.}	
 	\end{minipage}%
 	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -626,7 +617,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\label{table:3G_rxdiff_sample_wo_DFE}
 		\subcaption{Sampling signal of received differential w/o DFE.}
 	\end{minipage}	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &  -2  &  -1  &  0  &   1  &   2  &   3  &   4  &   5  &    6   \\ \hline 
@@ -640,7 +631,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 
 \begin{figure*}
 	\centering	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|}\hline
 			$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -650,7 +641,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\subcaption{Coefficient of DFE with 20Gb/s input.}	
 	\end{minipage}%
 	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -659,7 +650,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\label{table:20G_rxdiff_sample_wo_DFE}
 		\subcaption{Sampling signal of received differential w/o DFE.}
 	\end{minipage}	
-	\begin{minipage}[b]{\textwidth}
+	\begin{minipage}[hb]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -704,7 +695,7 @@ In following section, we use half-delayed DFE scheme shown in Fig.~\ref{fig:dfe_
 	\caption{Simulated eye at port A.}
 \end{figure*}
 
-In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample_DFE} shows the sampled differential channel response with FFE enabled. These channel responses can further be used to determine the 5-tap DFE. FIg.~\ref{fig:dfe_pulse_response} shows the pulse response after applying the DFE. We can see that the pulse response abruptly drop or elevated at half of UI, so that the sampled signal will have no post cursors. Table.~\ref{table:rx_diff_sample_DFE} also listed the sampled signal after DFE.
+In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample_DFE} shows the sampled differential channel response with FFE enabled. These channel responses can further be used to determine the 5-tap DFE. Fig.~\ref{fig:dfe_pulse_response} shows the pulse response after applying the DFE. We can see that the pulse response abruptly drop or elevated at half of UI, so that the sampled signal will have no post cursors. Table.~\ref{table:rx_diff_sample_DFE} also listed the sampled signal after DFE.
 
 \begin{figure*}[htbp!]
 	\captionsetup[subfigure]{justification=centering}
@@ -717,9 +708,8 @@ In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample
 		\centering	
 		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff_w_DFE.png}
 		\subcaption{20Gb/s.}
-	\end{minipage}%
-	\label{fig:dfe_pulse_response}
-	\caption{Pulse response after DFE.}
+	\end{minipage}%	
+	\caption{Pulse response after DFE.}\label{fig:dfe_pulse_response}
 \end{figure*}
 
 \section{Result}
