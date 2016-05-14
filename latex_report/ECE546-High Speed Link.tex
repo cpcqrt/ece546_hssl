@@ -86,17 +86,26 @@
 	
 \begin{abstract}
 A high speed data link with total length over twenty inches is proposed in this paper. With feed forward equalizer (FFE), and decision feed-back equalizer(DFE), the data rate can goes up to 20Gbps. The passive channel consists of bonding wire for package to printed circuit board (PCb) transition, total 12 inches of PCB lines, and two top-to-bottom via transition in PCB. With carefully designed matching network for each discontinuity, the overall performance of passive channel has -5dB insertion loss at 10GHz. Combined with DFE and FFE, the resulting eye has 81.5\% eye height, and 65\% eye width. 
+
 \cphighlight{Do you need PDA?}
 \end{abstract}
-%
+
 \section{Introduction}
-In this project, we design and simulate a Gbps differential high speed link with supply voltage at 1.8 V.
+With increasing speed, the urgent demand on higher performance for high speed link has become a critical problem in signal integrity. High-speed backplane serial I/O interconnections such as PCI-Express \cite{na_welcome_pcisig}, Serial ATA (SATA) \cite{I_serial_ata}, Thunderbolt \cite{na_thunderbolt_technology} amazed us years ago. However, the dawning mobile age shows even higher demand on high speed data link. Fig.~\ref{fig:pcie_speed} shows the increasing data rate of PCI Express \cite{na_welcome_pcisig}. \\
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./img/pcie-4-0-bandwidth.png}
-	\caption{PCI Express Data Rate in Different Generations \cite{C_doublespeed_nextgen}.}
+	\caption{Data rate of PCI Express in different generations \cite{C_doublespeed_nextgen}.}
+	\label{fig:pcie_speed}
 \end{figure}
+
+To improve the signal integrity (SI) of high speed link, several techniques has been proposed. Matching network, passive equalizers, analog equalizers, and digital equalizers were proposed in several different scenarios. However, because fo simplicity, FFE and DFE are the two most used finite impulse response (FIR) filter to equalize the desired channel.
+
+%In this report, 
+%In this project, we design and simulate a Gbps differential high speed link with supply voltage at 1.8 V.
+
+
 
 
 \section{System Level Design}
@@ -580,7 +589,6 @@ rxdff after FFE sampling
 \cphighlight{TX : Terminal, Diff}
 \cphighlight{RX : Terminal, Diff}
 
->>>>>>> 4a3e07546311144e0cae688b196e75e023739261
 
 \section{Decision Feedback Equalizer}
 Decision feedback equalizer (DFE) is a finite impulse response (FIR) filter based feedback scheme that reduces intersymbol Interference (ISI). The DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can predict the magnitude of postcursors and substract it \cbhighlight{find word previously}. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sig. 
