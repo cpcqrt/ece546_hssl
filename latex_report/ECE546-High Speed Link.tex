@@ -546,59 +546,34 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 \end{figure*}
 
 
-
-
-
-
-
-coeff.
-\begin{tabular}{|c|c|c|}\hline
-	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-	0.146 &   -0.558 &    1.599 \\ \hline
-	\label{table:20G_FFE_coeff} 
-\end{tabular}
-
-rxdff before FFE sampling
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.867 & -0.503 & 0.269 & -0.775 & -0.885 & -0.872 & -0.901 & -0.894 & -0.902 \\ \hline 
-	\label{table:20G_rxdiff_sample_wo_FFE}
-\end{tabular}
-
-rxdff after FFE sampling
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.898 & -0.898 & 0.901 & -0.705 & -0.892 & -0.854 & -0.906 & -0.889 & -0.905 \\ \hline 
-	\label{table:20G_rxdiff_sample_w__FFE}
-\end{tabular}
-
-\begin{figure*}[htbp!]
-	\centering	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_sampling.png}
-		\subcaption{Sampled received differential channel response w/o FFE.}
-	\end{minipage}%	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/1.png}
-		\subcaption{Differential signal before channel w/ and w/o FFE.}
-	\end{minipage}%
-\end{figure*}	
+	
 \begin{figure*}[htbp!]	
 	\ContinuedFloat
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff.png}
-		\subcaption{Received differential channel response w/o or w/o FFE.}
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff.png}
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2.png}
-		\subcaption{Differential signal after channel w/ and w/o FFE.}
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff.png}
 	\end{minipage}%
-	\caption{Transient Response at 3 Gbps.}
+	\caption{Received differential channel response w/o or w FFE.}
 \end{figure*}
+
+\begin{figure*}[htbp!]	
+	\ContinuedFloat
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2.png}
+	\end{minipage}%
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2.png}
+	\end{minipage}%
+	\caption{Differential signal after channel w/ and w/o FFE.}
+\end{figure*}
+
+
 \cphighlight{Add predicted output of FFE}
 \cphighlight{TX : Terminal, Diff}
 \cphighlight{RX : Terminal, Diff}
