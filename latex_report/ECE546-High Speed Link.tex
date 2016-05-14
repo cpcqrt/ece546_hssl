@@ -647,7 +647,20 @@ rx\_diff sampled w   DFE
 \section{Result}
 \label{sec:result}
 
-
+\begin{figure*}[htbp!]
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/3gbp_eye_total_before_channel.png}
+		\subcaption{Simulated eye at 3Gbps at port A.}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/20gbp_eye_total_before_channel.png}
+		\subcaption{Simulated eye at 20Gbps at port A.}
+	\end{minipage}%
+	\label{fig:eye_total_port_A}
+	\caption{Simulated eye at port A.}
+\end{figure*}
 
 \section{Conclusion}
 In this paper, we designed a passive channel with total length over 12 inches. The channel consists of package-to-PCB transition using bonding wire, and top-to-bottom via transition of PCB. This channel can achieve good performance subject to 3Gbps clock rate. With carefully designed FFE and DFE, this channel can further extends to 20Gbps. 
