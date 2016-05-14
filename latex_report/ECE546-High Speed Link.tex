@@ -29,7 +29,7 @@
 \newenvironment{abstract}{\begin{piersabstract}}{%
 	\end{piersabstract}\ignorespacesafterend% as suggested above
 }
-\renewcommand{\section}[1]{\psection{#1}}
+\renewcommand{\section}[1]{\clearpage\psection{#1}}
 \renewcommand{\subsection}[1]{\psubsection{#1}}
 
 
@@ -87,7 +87,6 @@
 \begin{abstract}
 A high speed data link with total length over twenty inches is proposed in this paper. With feed forward equalizer (FFE), and decision feed-back equalizer(DFE), the data rate can goes up to 20Gbps. The passive channel consists of bonding wire for package to printed circuit board (PCb) transition, total 12 inches of PCB lines, and two top-to-bottom via transition in PCB. With carefully designed matching network for each discontinuity, the overall performance of passive channel has -5dB insertion loss at 10GHz. Combined with DFE and FFE, the resulting eye has 98\% eye width and 92\% eye height at 3Gbps, and 66\% eye width and 81.5\% eye height at 20Gbps. 
 
-\cphighlight{Do you need PDA?}
 \end{abstract}
 
 \section{Introduction}
@@ -408,6 +407,8 @@ In order to see the eye diagram and transient response for our channel at differ
 	\label{fig:input_differential_eye}
 \end{figure*}
 
+
+
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
@@ -460,9 +461,74 @@ In order to see the eye diagram and transient response for our channel at differ
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
 
+One of the FIR equalizer usually used is FFE. Since the FFE needs the "future" data bit, it is usually implemented in transmitted port. Fig.~\ref{fig:sampled_channel_response} shows the sampled plain channel differential response at received port. The discrete value of the sampled signal is listed at Table.~\ref{table:3G_rxdiff_sample_w__FFE} and Table.~\ref{table:20G_rxdiff_sample_w__FFE}. From Fig.~\ref{fig:sampled_channel_response} we can observe that there are  two precursors in differential pulse response. Therefore, we will use two taps $b_{-2},b_{-1},b_0$ to eliminate it. Follow similar procedure described in \cite{na_microsoft_powerpoint}, we may obtain the coefficient of each taps in FFE. 
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_sampling.png}
+		\subcaption{3 Gb/s. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_sampling.png}
+		\subcaption{20 Gb/s. }
+	\end{minipage}%	
+	\caption{Sampled received differential channel response w/o FFE.}
+	\label{fig:sampled_channel_response}
+\end{figure*}
+
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.495\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/1.png}
+		\subcaption{3 Gb/s. }
+	\end{minipage}
+	\begin{minipage}[tb]{0.495\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/1.png}
+		\subcaption{20 Gb/s. }
+	\end{minipage}%	
+	\caption{Differential signal before channel w/ and w/o FFE.}
+\end{figure*}
+
+
+\begin{figure*}[htbp!]	
+	\ContinuedFloat
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff.png}
+		\subcaption{3 Gb/s. }
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff.png}
+		\subcaption{20 Gb/s. }
+	\end{minipage}%
+	\caption{Received differential channel response w/o or w FFE.}
+\end{figure*}
+
+\begin{figure*}[htbp!]	
+	\ContinuedFloat
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2.png}
+		\subcaption{3 Gb/s. }
+	\end{minipage}%
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2.png}
+		\subcaption{20 Gb/s. }
+	\end{minipage}%
+	\caption{Terminal signal after channel w/ and w/o FFE.}
+	\label{fig:diff_pulse_response_w_FFE}
+\end{figure*}
+
 \begin{figure*}
 	\centering	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[h]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|}\hline
 			$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
@@ -472,14 +538,14 @@ In order to see the eye diagram and transient response for our channel at differ
 		\subcaption{Coefficient of FFE with 3Gb/s input.}	
 	\end{minipage}%
 	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[h]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
 			$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
 		\end{tabular} 
 		\label{table:3G_rxdiff_sample_wo_FFE}
-		\subcaption{Sampling signal of received differential w/o FFE.}
+		\subcaption{Sampled signal of received differential w/o FFE.}
 	\end{minipage}	
 	\begin{minipage}[tb]{\textwidth}
 		\centering	
@@ -488,7 +554,7 @@ In order to see the eye diagram and transient response for our channel at differ
 			$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
 		\end{tabular}
 		\label{table:3G_rxdiff_sample_w__FFE} 
-		\subcaption{Sampling signal of received differential with FFE.}
+		\subcaption{Sampled signal of received differential with FFE.}
 	\end{minipage}
 	\caption{FFE Coefficient and Effect of Equalization at 3 Gb/s}
 \end{figure*}
@@ -527,70 +593,6 @@ In order to see the eye diagram and transient response for our channel at differ
 	\caption{FFE Coefficient and Effect of Equalization at 20 Gb/s}
 \end{figure*}
 
-\begin{figure*}[htbp!]
-	\centering	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_sampling.png}
-		\subcaption{3 Gb/s. }
-	\end{minipage}%	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_sampling.png}
-		\subcaption{20 Gb/s. }
-	\end{minipage}%	
-	\caption{Sampled received differential channel response w/o FFE.}
-\end{figure*}
-
-\begin{figure*}[htbp!]
-	\centering	
-	\begin{minipage}[tb]{0.495\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/1.png}
-		\subcaption{3 Gb/s. }
-	\end{minipage}
-	\begin{minipage}[tb]{0.495\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/1.png}
-		\subcaption{20 Gb/s. }
-	\end{minipage}%	
-	\caption{Differential signal before channel w/ and w/o FFE.}
-\end{figure*}
-
-	
-\begin{figure*}[htbp!]	
-	\ContinuedFloat
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff.png}
-		\subcaption{3 Gb/s. }
-	\end{minipage}%	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff.png}
-		\subcaption{20 Gb/s. }
-	\end{minipage}%
-	\caption{Received differential channel response w/o or w FFE.}
-\end{figure*}
-
-\begin{figure*}[htbp!]	
-	\ContinuedFloat
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/2.png}
-		\subcaption{3 Gb/s. }
-	\end{minipage}%
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/20G/2.png}
-		\subcaption{20 Gb/s. }
-	\end{minipage}%
-	\caption{Differential signal after channel w/ and w/o FFE.}
-\end{figure*}
-
-
-\cphighlight{Add predicted output of FFE}
-
 
 \section{Decision Feedback Equalizer}
 Decision feedback equalizer (DFE) is a finite impulse response (FIR) filter based feedback scheme that reduces intersymbol Interference (ISI). The DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can predict the magnitude of postcursors and substract it ahead. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sign.  
@@ -600,13 +602,12 @@ c_i = V_d^{Rx}[n] - V_d^{Rx}[\infty], n=1,2,...,5,
 \label{eq:DFE_tap_design_formula}
 \end{equation}
 %
-<<<<<<< HEAD
 where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FFE enabled. Since there might be DC locc in the channel, the base level, or the steady state of the differential signal may not be exactly -0.9V and thus $V_d^{Rx}[\infty]$, the steady state of the received differential signal must be substracted before using \ref{eq:DFE_tap_design_formula}. The sampling rate of DFE is the same to the system clock rate. When integrate the DFE unit into the entire channel, appropriate delay time needs to be added to ensure correct functioning of the DFE. In our case, we set our delay time to be 4.2 ns. 
 
 
 \begin{figure*}
 	\centering	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|}\hline
 			$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -616,7 +617,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\subcaption{Coefficient of DFE with 3Gb/s input.}	
 	\end{minipage}%
 	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -625,7 +626,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\label{table:3G_rxdiff_sample_wo_DFE}
 		\subcaption{Sampling signal of received differential w/o DFE.}
 	\end{minipage}	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &  -2  &  -1  &  0  &   1  &   2  &   3  &   4  &   5  &    6   \\ \hline 
@@ -639,7 +640,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 
 \begin{figure*}
 	\centering	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|}\hline
 			$c_{1}$ &  $c_{2}$ &  $c_{3}$ &  $c_{4}$ &  $c_{5}$ \\ \hline 
@@ -649,7 +650,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\subcaption{Coefficient of DFE with 20Gb/s input.}	
 	\end{minipage}%
 	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -658,7 +659,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\label{table:20G_rxdiff_sample_wo_DFE}
 		\subcaption{Sampling signal of received differential w/o DFE.}
 	\end{minipage}	
-	\begin{minipage}[tb]{\textwidth}
+	\begin{minipage}[b]{\textwidth}
 		\centering	
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
@@ -668,6 +669,7 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 		\subcaption{Sampling signal of received differential with DFE.}
 	\end{minipage}
 	\caption{DFE Coefficient and Effect of Equalization at 20 Gb/s}
+	\label{table:rx_diff_sample_DFE}
 \end{figure*}
 
 where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FFE enabled. Since there might be DC locc in the channel, the base level, or the steady state of the differential signal may not be exactly -0.9V and thus $V_d^{Rx}[\infty]$, the steady state of the received differential signal must be substracted before using \ref{eq:DFE_tap_design_formula}. The sampling rate of DFE is the same to the system clock rate.
@@ -676,7 +678,6 @@ However, there are several different delay scheme of DFE. The traditional delay 
 
 In following section, we use half-delayed DFE scheme shown in Fig.~\ref{fig:dfe_eye_half}. The half-delayed feed back symbol can be achieved through utilizing the falling edge of clock, while rising edge of clock is used to sampling the input signal. 
 
-\cphighlight{where's DFE's pulse response?}
 
 \begin{figure}[htbp!]
 	\centering
@@ -703,11 +704,25 @@ In following section, we use half-delayed DFE scheme shown in Fig.~\ref{fig:dfe_
 	\caption{Simulated eye at port A.}
 \end{figure*}
 
+In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample_DFE} shows the sampled differential channel response with FFE enabled. These channel responses can further be used to determine the 5-tap DFE. 
 
-\cphighlight{Add predicted output of FFE + DFE}
-
-\section{Differential Amplifier}
-\label{sec:diff_Op}
+%\begin{figure*}[htbp!]
+%	\captionsetup[subfigure]{justification=centering}
+%	\begin{minipage}[tb]{0.5\textwidth}
+%		\centering	
+%		\includegraphics[width=\textwidth]{./img/Verilog/dfe/integer_dfe.png}
+%		\subcaption{Example eye diagram of full-delay scheme of DFE.}
+%		\label{fig:dfe_}
+%	\end{minipage}%	
+%	\begin{minipage}[tb]{0.5\textwidth}
+%		\centering	
+%		\includegraphics[width=\textwidth]{./img/Verilog/dfe/half_dfe.png}
+%		\subcaption{Example eye diagram of half-delay scheme of DFE propsed in \cite{na_energy_efficient, na_microsoft_powerpoint}.}
+%		\label{fig:dfe_eye_half}
+%	\end{minipage}%
+%	\label{fig:dfe_delay_scheme_result}
+%	\caption{Simulated eye at port A.}
+%\end{figure*}
 
 \section{Result}
 \label{sec:result}
