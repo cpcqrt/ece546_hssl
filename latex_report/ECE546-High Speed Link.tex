@@ -459,7 +459,7 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 			0.000 &   -0.001 &    1.016 \\ \hline 
 		\end{tabular}
 		\label{table:3G_FFE_coeff}
-		\subcaption{Coefficient of FFE with 3Gbps input.}	
+		\subcaption{Coefficient of FFE with 3Gb/s input.}	
 	\end{minipage}%
 	
 	\begin{minipage}[tb]{\textwidth}
@@ -471,65 +471,85 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 		\label{table:3G_rxdiff_sample_wo_FFE}
 		\subcaption{Sampling signal of received differential w/o FFE.}
 	\end{minipage}	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+			$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
+		\end{tabular}
+		\label{table:3G_rxdiff_sample_w__FFE} 
+		\subcaption{Sampling signal of received differential with FFE.}
+	\end{minipage}
+	\caption{FFE Coefficient and Effect of Equalization at 3 Gb/s}
 \end{figure*}
-
-
-
-
-3G: coeff.
-\begin{tabular}{|c|c|c|}\hline
-	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-	0.000 &   -0.001 &    1.016 \\ \hline 
-	\label{table:3G_FFE_coeff}
-%	\caption{Coefficient of FFE with 3Gbps input.}
-\end{tabular}
-
-3G: rxdff before FFE sampling
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
-	\label{table:3G_rxdiff_sample_wo_FFE}
-%	\caption{Sampling signal of received differential w/o FFE.}
-\end{tabular}
-
-3G: rxdff after FFE sampling
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-	n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
-	\label{table:3G_rxdiff_sample_w__FFE} 
-	
-\end{tabular}
-
 
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
 		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_sampling.png}
-		\subcaption{}
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/1.png}
-		\subcaption{}
-	\end{minipage}
-\end{figure*}	
-\begin{figure*}[htbp!]	
-	\ContinuedFloat
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff.png}
-		\subcaption{}
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_sampling.png}
 	\end{minipage}%	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\includegraphics[width=\textwidth]{./img/Verilog/3G/2.png}
-		\subcaption{}
-	\end{minipage}
-	\caption{Transient Response at 3 Gbps.}
+	\caption{Sampled received differential channel response w/o FFE.}
 \end{figure*}
 
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.495\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/1.png}
+	\end{minipage}
+	\begin{minipage}[tb]{0.495\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/1.png}
+	\end{minipage}%	
+	\caption{Differential signal before channel w/ and w/o FFE.}
+\end{figure*}
+
+
 20G: 
+
+\begin{figure*}
+	\centering	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|}\hline
+			$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+			0.146 &   -0.558 &    1.599 \\ \hline
+		\end{tabular}
+		\label{table:20G_FFE_coeff} 
+		\subcaption{Coefficient of FFE with 20Gb/s input.}	
+	\end{minipage}%
+	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+			$V$ & -0.867 & -0.503 & 0.269 & -0.775 & -0.885 & -0.872 & -0.901 & -0.894 & -0.902 \\ \hline 
+			\label{table:20G_rxdiff_sample_wo_FFE}
+		\end{tabular}
+		\label{table:20G_rxdiff_sample_wo_FFE}
+		\subcaption{Sampling signal of received differential w/o FFE.}
+	\end{minipage}	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+			$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
+		\end{tabular}
+		\label{table:3G_rxdiff_sample_w__FFE} 
+		\subcaption{Sampling signal of received differential with FFE.}
+	\end{minipage}
+	\caption{FFE Coefficient and Effect of Equalization at 3 Gb/s}
+\end{figure*}
+
+
+
+
+
 
 
 coeff.
