@@ -107,9 +107,16 @@ This report is organized as follow, first we will give a system level preview. T
 
 \section{System Level Design}
 \label{sec:system}
-The high speed link we built consists of three main subsystems, namely the transmitter (TX) block, the channel block and the receiver (RX) block. Two paths are designed to transmit the bit stream and the clock signal separately. 
+The high speed link we built consists of three main subsystems, namely the transmitter (TX) block, the channel block and the receiver (RX) block. Two paths are designed to transmit the bit stream and the clock signal separately. \\
 
-In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters.
+In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock uses a clock . Both transmitters can be implemented using transistor level inverters. \\
+
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.9\columnwidth]{./img/system_box_model.png}
+	\caption{Block diagram of entire high speed data link.}
+\end{figure}
 
 The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 24 small blocks. It turns out that there are only four distinct type of structures we need to simulate, namely the PCB trace, the via transition, package trace and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
 
@@ -298,7 +305,7 @@ Similar procedure described in \ref{subsec:pcb_traces} can also be applied to th
 
 \subsection{Bonding Wire Transition}
 \label{sec:bond_wire}
-The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in \ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to decrease the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
+The transition between package and PCB is through using bonding wire. Fig.~\ref{fig:bonding_wire_HFSS} shows the transition structure of bonding wire, and Table.~\ref{table:bonding_wire_parameter} shows the corresponding design parameter. Similar to via transition in PCB described in \ref{subsec:via_tran}, the lumped model shown in Sec.~\ref{fig:pcb_via_lump_model} also applied here. However, since the bonding wire is a very resistive and inductive, the additional patches were attached at the both side of bonding wire in order to decrease the differential impedance. Same equation in \ref{eq:pcb_via_lump_diff} can also be applied here. 
 
 Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and common mode, and \ref{fig:bonding_wire_S_smith} also shows the $S^{dd}_{11}$ and $S^{dd}_{22}$ on Smith chart. It can be observed that the reflection of differential modes from both ports have 0.1 reflection at 3GHz, whereas half the reflection at 10GHz. The high reflection at high frequency is because adding patches can only be affective at low frequency. In \cite{1IWSPI2S2_FikarS_ScholtzAL_2008_100ghz_bandwidth}, removing ground of both package and PCB will achieve better performance. 
 
@@ -377,7 +384,10 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\label{fig:Mixed Mode S-parameter Response}
 \end{figure*}
 
-\subsection{Channel Response}
+\subsection{Plain Channel Response}
+\highlight{frequency domain result :ADS, Sdd11 good, Sdd12 good, ...}
+\hightlight{time domain result: }
+
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
@@ -438,7 +448,7 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
 		\subcaption{20 Gb/s. }
 	\end{minipage}
-	\caption{Output Transient Response.}
+	\caption{Received transient terminal response.}
 	\label{fig:output_transient_response}
 \end{figure*}
 \label{subsec:channel_response}
@@ -677,8 +687,6 @@ However, there are several different delay scheme of DFE. The traditional delay 
 
 
 \cphighlight{Add predicted output of FFE + DFE}
-\cphighlight{RX : Terminal, Diff}
-\cphighlight{RXe: Terminal, Diff}
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
