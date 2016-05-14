@@ -359,14 +359,6 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\caption{Smith chart of Sdd11 and Sdd22 of bonding wire transition.}
 \end{figure*}
 
-
-
-\subsection{Channel Response without Equalization}
-After obtaining S-parameter for the entire channel from ADS cascade, we convert our 4 port S-parameters to Mixed Mode to observe the differential mode and common mode S-parameters respectively. Since our channel is designed to transmit differential signal, we want $S^{dd}_{11}$ to be as small as possible to minimize reflection and $S^{dd}_{12}$ to be as large as possible to minimize signal loss. Fig.~\ref{fig:Mixed Mode S-parameter Response} (a) confirms that our channel achieve the our goal and have very good performance.
-
-In order to see the eye diagram and transient response for our channel at different bit rate, we also simulated our channel in Cadence Virtuoso with pseudo random bit sequence input for a long period of time. Fig.~\ref{fig:input_differential_eye} and Fig.~\ref{fig:output_differential_eye} shows the eye diagram of the input and output of the channel at 3 Gb/s and 20 Gb/s whereas Fig.~\ref{fig:input_transient_response} and Fig.~\ref{fig:output_transient_response} shows the transient response.
-
-
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[b]{0.5\linewidth}
@@ -385,9 +377,7 @@ In order to see the eye diagram and transient response for our channel at differ
 	\label{fig:Mixed Mode S-parameter Response}
 \end{figure*}
 
-
-
-
+\subsection{Channel Response}
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
@@ -451,6 +441,11 @@ In order to see the eye diagram and transient response for our channel at differ
 	\caption{Output Transient Response.}
 	\label{fig:output_transient_response}
 \end{figure*}
+\label{subsec:channel_response}
+\highlight{Add the entire channel response in time      domain and eye diagram at 3Gbps, and 10Gbps. (With inverter, but without the DFE and FFE)}
+
+
+\highlight{Add the entire channel response in frequency domain (using ADS), and show the differential / common mode result. }
 
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
@@ -585,8 +580,6 @@ In order to see the eye diagram and transient response for our channel at differ
 
 
 \cphighlight{Add predicted output of FFE}
-\cphighlight{TX : Terminal, Diff}
-\cphighlight{RX : Terminal, Diff}
 
 
 \section{Decision Feedback Equalizer}
@@ -669,27 +662,60 @@ where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FF
 
 where $V_d^{Rx}[n]$ is the n-th sampling of received differential signal with FFE enabled. Since there might be DC locc in the channel, the base level, or the steady state of the differential signal may not be exactly -0.9V and thus $V_d^{Rx}[\infty]$, the steady state of the received differential signal must be substracted before using \ref{eq:DFE_tap_design_formula}. The sampling rate of DFE is the same to the system clock rate.
 
-However, there are several different delay scheme of DFE. The traditional delay scheme is one delay, as shown in left figure of \ref{fig:dfe_delay_scheme}. 
+However, there are several different delay scheme of DFE. The traditional delay scheme is one delay, as shown in left figure of \ref{fig:dfe_delay_scheme}. However, in \cite{na_energy_efficient, na_microsoft_powerpoint} suggests that only delay half of clock of first symbol may make eye diagram better. For example, Fig.~\ref{fig:dfe_eye_full} shows the eye diagram using full-delay scheme of DFE, while Fig.~\ref{fig:dfe_eye_half} shows the eye diagram using half-delay scheme of DFE. One may easily observed that half-delayed DFE may have better performance since the eye remains smooth at maximum and minimum of eye, which causes less jitter. On the other hand, the full-delayed DFE causes abrupt discontinuous right on the sampling time, and thus will be vulnerable to clock jitter. 
 
-\cphighlight{This is proposed in  Another }
+In following section, we use half-delayed DFE scheme shown in Fig.~\ref{fig:dfe_eye_half}. The half-delayed feed back symbol can be achieved through utilizing the falling edge of clock, while rising edge of clock is used to sampling the input signal. 
+
+\cphighlight{where's DFE's pulse response?}
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{./img/Verilog/half-delayed_DFE_comparison.png}
+	\includegraphics[width=0.8\columnwidth]{./img/Verilog/dfe/half-delayed_DFE_comparison.png}
 	\caption{Different delay scheme of DFE.}
 	\label{fig:dfe_delay_scheme} % label must put at the last
 \end{figure}
 
+\begin{figure*}[htbp!]
+	\captionsetup[subfigure]{justification=centering}
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/dfe/integer_dfe.png}
+		\subcaption{Example eye diagram of full-delay scheme of DFE.}
+		\label{fig:dfe_eye_full}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/dfe/half_dfe.png}
+		\subcaption{Example eye diagram of half-delay scheme of DFE propsed in \cite{na_energy_efficient, na_microsoft_powerpoint}.}
+		\label{fig:dfe_eye_half}
+	\end{minipage}%
+	\label{fig:dfe_delay_scheme_result}
+	\caption{Simulated eye at port A.}
+\end{figure*}
+
 
 \cphighlight{Add predicted output of FFE + DFE}
-\cphighlight{RX : Terminal, Diff}
-\cphighlight{RXe: Terminal, Diff}
 
 \section{Differential Amplifier}
 \label{sec:diff_Op}
 
 \section{Result}
 \label{sec:result}
+\begin{figure*}[htbp!]
+	\centering	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_3gbp.png}
+		\subcaption{3 Gb/s}
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_20gbp.png}
+		\subcaption{20 Gb/s. }
+	\end{minipage}
+	\caption{Simulated eye at port B with plain channel, without DFE nor FFE. Replicated from Fig.~\ref{fig:output_differential_eye}}
+	\label{fig:eye_bare_channel}
+\end{figure*}
 
 \begin{figure*}[htbp!]
 	\captionsetup[subfigure]{justification=centering}
