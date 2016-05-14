@@ -704,25 +704,23 @@ In following section, we use half-delayed DFE scheme shown in Fig.~\ref{fig:dfe_
 	\caption{Simulated eye at port A.}
 \end{figure*}
 
-In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample_DFE} shows the sampled differential channel response with FFE enabled. These channel responses can further be used to determine the 5-tap DFE. 
+In Fig.~\ref{fig:diff_pulse_response_w_FFE} and Table.~\ref{table:rx_diff_sample_DFE} shows the sampled differential channel response with FFE enabled. These channel responses can further be used to determine the 5-tap DFE. FIg.~\ref{fig:dfe_pulse_response} shows the pulse response after applying the DFE. We can see that the pulse response abruptly drop or elevated at half of UI, so that the sampled signal will have no post cursors. Table.~\ref{table:rx_diff_sample_DFE} also listed the sampled signal after DFE.
 
-%\begin{figure*}[htbp!]
-%	\captionsetup[subfigure]{justification=centering}
-%	\begin{minipage}[tb]{0.5\textwidth}
-%		\centering	
-%		\includegraphics[width=\textwidth]{./img/Verilog/dfe/integer_dfe.png}
-%		\subcaption{Example eye diagram of full-delay scheme of DFE.}
-%		\label{fig:dfe_}
-%	\end{minipage}%	
-%	\begin{minipage}[tb]{0.5\textwidth}
-%		\centering	
-%		\includegraphics[width=\textwidth]{./img/Verilog/dfe/half_dfe.png}
-%		\subcaption{Example eye diagram of half-delay scheme of DFE propsed in \cite{na_energy_efficient, na_microsoft_powerpoint}.}
-%		\label{fig:dfe_eye_half}
-%	\end{minipage}%
-%	\label{fig:dfe_delay_scheme_result}
-%	\caption{Simulated eye at port A.}
-%\end{figure*}
+\begin{figure*}[htbp!]
+	\captionsetup[subfigure]{justification=centering}
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/3G/2_diff_w_DFE.png}
+		\subcaption{3Gb/s.}		
+	\end{minipage}%	
+	\begin{minipage}[tb]{0.5\textwidth}
+		\centering	
+		\includegraphics[width=\textwidth]{./img/Verilog/20G/2_diff_w_DFE.png}
+		\subcaption{20Gb/s.}
+	\end{minipage}%
+	\label{fig:dfe_pulse_response}
+	\caption{Pulse response after DFE.}
+\end{figure*}
 
 \section{Result}
 \label{sec:result}
