@@ -440,21 +440,51 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
 
+\begin{figure*}
+\centering	
+\begin{minipage}[tb]{\textwidth}
+	\centering	
+	\includegraphics[height=0.4\textheight]{./img/PCB/Bonding_Wire/view-Side.png}
+	\subcaption{Side view. The upper left side is package substrate, which is stacked on the PCB substrate. }
+\end{minipage}%
+\vskip0.2in	
+\begin{minipage}[tb]{\textwidth}
+	\centering	
+	\includegraphics[height=0.4\textheight]{./img/PCB/Bonding_Wire/view-Top.png}
+	\subcaption{Top view. The upper side is package substrate. }
+\end{minipage}
+\label{fig:bonding_wire_HFSS}
+\caption{Bonding wire transition simulated in HFSS.}
+\end{figure*}
+
+
+
 3G: coeff.
-\begin{tabular}{|c|c|c|}\hline
-	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-	0.000 &   -0.001 &    1.016 \\ \hline 
-	\label{table:3G_FFE_coeff}
-	\caption{Coefficient of FFE with 3Gbps input.}
-\end{tabular}
+\begin{figure*}
+	\centering	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|}\hline
+		$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+		0.000 &   -0.001 &    1.016 \\ \hline 
+		\end{tabular}
+		\label{table:3G_FFE_coeff}
+		\subcaption{Coefficient of FFE with 3Gbps input.}	
+	\end{minipage}%
+	
+	\begin{minipage}[tb]{\textwidth}
+		\centering	
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+		n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+		$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
+	\end{tabular} 
+		\label{table:3G_rxdiff_sample_wo_FFE}
+		\subcaption{Sampling signal of received differential w/o FFE.}
+	\end{minipage}	
+\end{figure*}
 
 3G: rxdff before FFE sampling
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-	$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
-	\label{table:3G_rxdiff_sample_wo_FFE}
-	\caption{Sampling signal of received differential w/o FFE.}
-\end{tabular}
+
 
 3G: rxdff after FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
