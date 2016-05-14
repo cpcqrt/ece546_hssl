@@ -111,6 +111,13 @@ The high speed link we built consists of three main subsystems, namely the trans
 
 In the TX block, signal path is composed of a data transmitter and a feed-forward equalizer (FFE) implemented with Verilog, whereas the clock path has a clock transmitter connected to the external clock generator. Both transmitters can be implemented using transistor level inverters.
 
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{./img/system_box_model.png}
+	\caption{Block diagram of entire high speed link.}
+\end{figure}
+
+
 The channel block consists of bonding wire and the actual signal traces. Since the channel we built is largely symmetric, in order to speed up the simulation, we adopt 'divide and conquer' strategy. We split our channel into 24 small blocks. It turns out that there are only four distinct type of structures we need to simulate, namely the PCB trace, the via transition, package trace and bonding wire transition. After obtaining the S-parameter data for each individual block, we cascade the S-parameter using Keysight ADS and quickly obtain the S-parameter for the entire channel. 
 
 \begin{figure}[htbp!]
@@ -377,7 +384,14 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\label{fig:Mixed Mode S-parameter Response}
 \end{figure*}
 
-\subsection{Channel Response}
+
+
+\subsection{Channel Response without Equalization}
+\label{subsec:channel_response}
+After obtaining S-parameter for the entire channel from ADS cascade, we convert our 4 port S-parameters to Mixed Mode to observe the differential mode and common mode S-parameters respectively. Since our channel is designed to transmit differential signal, we want $S^{dd}_{11}$ to be as small as possible to minimize reflection and $S^{dd}_{12}$ to be as large as possible to minimize signal loss. Fig.~\ref{fig:Mixed Mode S-parameter Response} (a) confirms that our channel achieve the our goal and have very good performance.
+
+In order to see the eye diagram and transient response for our channel at different bit rate, we also simulated our channel in Cadence Virtuoso with pseudo random bit sequence input for a long period of time. Fig.~\ref{fig:input_differential_eye} and Fig.~\ref{fig:output_differential_eye} shows the eye diagram of the input and output of the channel at 3 Gb/s and 20 Gb/s whereas Fig.~\ref{fig:input_transient_response} and Fig.~\ref{fig:output_transient_response} shows the transient response.
+
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
@@ -441,11 +455,7 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\caption{Output Transient Response.}
 	\label{fig:output_transient_response}
 \end{figure*}
-\label{subsec:channel_response}
-\highlight{Add the entire channel response in time      domain and eye diagram at 3Gbps, and 10Gbps. (With inverter, but without the DFE and FFE)}
 
-
-\highlight{Add the entire channel response in frequency domain (using ADS), and show the differential / common mode result. }
 
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
