@@ -376,14 +376,14 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
 		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_differential_eye_3gbp.png}
-		\subcaption{Input Eye Diagram. }
+		\subcaption{3 Gb/s. }
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_3gbp.png}
-		\subcaption{Output Eye Diagram. }
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_differential_eye_20gbp.png}
+		\subcaption{20 Gb/s. }
 	\end{minipage}
-	\caption{Eye diagram at 3 Gbps.}
+	\caption{Input Eye Diagram.}
 \end{figure*}
 
 \begin{figure*}[htbp!]
@@ -391,44 +391,44 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
 		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_transient_response_3gbp.png}
-		\subcaption{Input Transient Response. }
+		\subcaption{3 Gb/s. }
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_3gbp.png}
-		\subcaption{Output Transient Response. }
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_transient_response_20gbp.png}
+		\subcaption{20 Gb/s. }
 	\end{minipage}
-	\caption{Transient Response at 3 Gbps.}
+	\caption{Input Transient Response.}
 \end{figure*}
 
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/input_differential_eye_20gbp.png}
-		\subcaption{Input Eye Diagram. }
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_3gbp.png}
+		\subcaption{3 Gb/s. }
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
 		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_differential_eye_20gbp.png}
-		\subcaption{Output Eye Diagram. }
+		\subcaption{20 Gb/s. }
 	\end{minipage}
-	\caption{Eye diagram at 20 Gbps.}
+	\caption{Output Eye Diagram.}
 \end{figure*}
 
 \begin{figure*}[htbp!]
 	\centering	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/input_transient_response_20gbp.png}
-		\subcaption{Input Transient Response. }
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_3gbp.png}
+		\subcaption{3 Gb/s. }
 	\end{minipage}%	
 	\begin{minipage}[tb]{0.5\textwidth}
 		\centering	
-		\includegraphics[width=\textwidth]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
-		\subcaption{Output Transient Response. }
+		\includegraphics[height=0.15\textheight]{./img/channel_response_eye_diagram/output_transient_response_20gbp.png}
+		\subcaption{20 Gb/s. }
 	\end{minipage}
-	\caption{Transient Response at 20 Gbps.}
+	\caption{Output Transient Response.}
 \end{figure*}
 \label{subsec:channel_response}
 \highlight{Add the entire channel response in time      domain and eye diagram at 3Gbps, and 10Gbps. (With inverter, but without the DFE and FFE)}
@@ -439,68 +439,30 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 \section{Feed Forward Equalizer}
 \label{sec:FFE}
 
-\begin{figure*}[htbp!]
-	\centering	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\begin{tabular}{|c|c|c|}\hline
-			$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-			0.000 &   -0.001 &    1.016 \\ \hline 
-		\end{tabular}
-		\subcaption{Coefficient of FFE with 3Gbps input.}
-		\label{table:3G_FFE_coeff}	
-	\end{minipage}%	
-	\begin{minipage}[tb]{0.5\textwidth}
-		\centering	
-		\begin{tabular}{|c|c|c|}\hline
-			$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
-			0.146 &   -0.558 &    1.599 \\ \hline
-		\end{tabular}
-		\subcaption{Coefficient of FFE with 20Gbps input.}
-		\label{table:20G_FFE_coeff} 
-	\end{minipage}
-	\caption{Coefficient of designated FFE.}
-	\label{table:FFE_coeff}
-\end{figure*}
-
 3G: coeff.
-%\begin{table}[htbp!]
-%	\renewcommand{\arraystretch}{1.3}	
-%	\begin{center}
-%	
-%	\end{center}
-%	
-%	\caption{}
-%\end{table}
-
+\begin{tabular}{|c|c|c|}\hline
+	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+	0.000 &   -0.001 &    1.016 \\ \hline 
+	\label{table:3G_FFE_coeff}
+	\caption{Coefficient of FFE with 3Gbps input.}
+\end{tabular}
 
 3G: rxdff before FFE sampling
-\begin{table}[htbp!]
-	\renewcommand{\arraystretch}{1.3}	
-	\begin{center}
-		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-			n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-			$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
-		\end{tabular}
-	\end{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &   -2   &   -1   &   0   &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.901 & -0.898 & 0.871 & -0.887 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline 
 	\label{table:3G_rxdiff_sample_wo_FFE}
 	\caption{Sampling signal of received differential w/o FFE.}
-\end{table}
-
-
+\end{tabular}
 
 3G: rxdff after FFE sampling
-\begin{table}[htbp!]
-	\renewcommand{\arraystretch}{1.3}	
-	\begin{center}
-		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
-			n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
-			$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline			
-		\end{tabular}
-	\end{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+	n  &  -2  &  -1  &  0  &    1   &    2   &    3   &    4   &    5   &    6   \\ \hline 
+	$V$ & -0.9 & -0.9 & 0.9 & -0.886 & -0.885 & -0.897 & -0.898 & -0.898 & -0.899 \\ \hline
 	\label{table:3G_rxdiff_sample_w__FFE} 
-	\caption{Sampling signal of received differential w/ FFE.}
-\end{table}
+	
+\end{tabular}
+
 
 \begin{figure*}[htbp!]
 	\centering	
@@ -533,6 +495,12 @@ Fig.~\ref{fig:bonding_wire_S} shows the s parameter of both differential and com
 20G: 
 
 
+coeff.
+\begin{tabular}{|c|c|c|}\hline
+	$b_{-2}$ & $b_{-1}$ &  $b_{0}$ \\ \hline 
+	0.146 &   -0.558 &    1.599 \\ \hline
+	\label{table:20G_FFE_coeff} 
+\end{tabular}
 
 rxdff before FFE sampling
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
@@ -584,7 +552,7 @@ rxdff after FFE sampling
 \section{Decision Feedback Equalizer}
 Decision feedback equalizer (DFE) is a finite impulse response (FIR) filter based feedback scheme that reduces intersymbol Interference (ISI). The DFE consists of a slicer (Decision unit) and a FIR filter. The slicer makes symbol decisions and determine whether the FIR filter should be used to reduce the postcursors. By analyzing the input differential signal, we can predict the magnitude of postcursors and substract it \cbhighlight{find word previously}. Postcursors can then be reduced by making filter tap coefficients equal to postcursor magnitude but with an opposite sig. 
 %
-\begin{equation}
+\begin{}equation}
 c_i = V_d^{Rx}[n] - V_d^{Rx}[\infty], n=1,2,...,5
 \label{eq:DFE_tap_design_formula},
 \end{equation}
