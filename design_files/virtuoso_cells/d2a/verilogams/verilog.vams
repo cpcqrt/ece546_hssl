@@ -1,0 +1,21 @@
+//Verilog-AMS HDL for "ECE546", "d2a" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ns/1fs
+
+module d2a (digital_in, analog_out);
+input digital_in;
+output analog_out;
+
+wire digital_in;
+electrical analog_out;
+
+parameter real VDD = 1.8;
+parameter real trf = 30e-12; // 30ps
+
+analog begin
+	V(analog_out) <+ transition( digital_in * VDD, 0, trf, trf);
+end
+
+endmodule

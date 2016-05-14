@@ -1,0 +1,39 @@
+//Verilog-AMS HDL for "ECE546", "dfe_control_unit" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ns/1fs
+
+// Make sure the transient maximum timestep must <= 1ps to see the
+// significance of DFE, or the time response will not be accurate,
+// which degrade the performance of DFE.
+
+module dfe_control_unit (clk_int, rst_int);
+output clk_int, rst_int;
+
+parameter real delayUnit = 4.27; // (4.25 ns)
+parameter cycle = 0.05;	// clock period (50ps = 0.05*1nps)
+   
+reg rst_int;
+reg clk;  // generate the internal clk.
+
+initial begin
+	clk = 1;
+end
+
+// The reset signal has to a cycle earlier than the real signal
+// Another half cycle guarantee the correctness.
+initial begin
+	rst_int = 0;
+	#(delayUnit - cycle/2 - cycle) rst_int = 1;
+	#(cycle) rst_int = 0;
+end
+
+always #(cycle/2) clk = ~clk;
+
+//Delay the clk to clk_int
+wire clk_int;
+assign #(delayUnit - $floor(delayUnit/cycle)*cycle) clk_int =  clk;
+
+
+endmodule

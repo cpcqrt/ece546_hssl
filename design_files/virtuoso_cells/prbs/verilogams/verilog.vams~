@@ -1,0 +1,20 @@
+//Verilog-AMS HDL for "ECE546", "prbs" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module prbs (clk, dout);
+input clk;
+output dout;
+
+wire clk;
+reg dout = 1'b0;
+
+//prbs 31
+reg [30:0] d = 31'b00001;;
+always @(posedge clk) begin
+    dout <= d[30] ^ d[27] ;
+    d <= { d[30:0], dout};
+end
+
+endmodule

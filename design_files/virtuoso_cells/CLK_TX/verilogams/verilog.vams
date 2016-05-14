@@ -1,0 +1,70 @@
+// CLK Behavioral Model (w/ phase noise)
+// Created by wschoi (11/13/12) 
+// Modified by Da Wei (04/02/16)
+`define PI 3.14159265358979323846264338327950288419716939937511
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ns/1fs
+
+module CLK_TX (CLK, CLK_bar);
+	real noise_acc_dbc = -100;	// DCO FM noise @ fos (single-sideband)
+	real fos = 1M;		
+	real noise_white_dbc = -120;	// DCO PM noise (single-sideband)
+
+        output CLK, CLK_bar;         // DCO output clk
+	electrical CLK, CLK_bar;
+	reg dco_out;
+        reg dco_out_ideal;
+        reg dco_out_jitt;
+
+
+        parameter real freq = 3300M;	// DCO output frequency
+
+	real nom_delay;
+        real ideal_delay;
+        real jitt_delay;
+
+	real fm_jitt_std;
+	real pm_jitt_std;
+
+        real fm_del;
+        real pm_del_2;
+        real pm_del;
+        integer seed1 = -311;   
+        integer seed2 = -561;   
+
+        initial begin
+               // dco_out         = 1'b0;
+                dco_out_ideal   = 1'b0;
+                dco_out_jitt    = 1'b0;
+		nom_delay	= 1/freq*1e9/2;
+                ideal_delay     = nom_delay;
+                jitt_delay      = nom_delay;
+		if (noise_acc_dbc != 0)	
+			fm_jitt_std	= fos*sqrt(10**(noise_acc_dbc/10)/(freq**3))*1e9;	// FM jitter (period jitter std)
+		else
+			fm_jitt_std	= 0;
+		if (noise_white_dbc != 0)	
+			pm_jitt_std 	= sqrt(10**(noise_white_dbc/10)/freq)/2/`PI*1e9;  // PM jitter (period jitter std)
+		else
+			pm_jitt_std	= 0;
+                fm_del          = 0;
+                pm_del          = 0;
+                pm_del_2        = 0;
+        end
+
+        always @(negedge dco_out_jitt) begin                                    // accumulating jitter modeling
+                pm_del_2 = pm_del;
+                pm_del = pm_jitt_std/2*$dist_normal(seed1,0,1000000)*1e-6;
+                fm_del = fm_jitt_std/2*$dist_normal(seed2,0,1000000)*1e-6;      // divided by 2 for half period  
+                jitt_delay = ideal_delay + pm_del - pm_del_2 + fm_del;
+        end
+
+        always #(jitt_delay)    dco_out_jitt    <= ~dco_out_jitt;
+        analog begin
+		V(CLK) <+ transition(1.8*dco_out_jitt, 1e-11,1e-11,1e-11);
+		V(CLK_bar) <+ transition(1.8*(1-dco_out_jitt), 1e-11,1e-11,1e-11);
+        end
+
+endmodule
+

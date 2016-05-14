@@ -1,0 +1,28 @@
+//Verilog-AMS HDL for "ECE546", "clk_gen" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ps/1fs
+
+
+module clk_gen (clk_out, clk);
+output clk_out, clk;
+
+parameter real cycle = 50;	// clock period (3.3GHz = 300ps = 0.3*1ns)
+parameter real delay_scale = 1000;  // clock delay  (1ns = 1*1ns )
+
+
+// generate the internal clk.
+reg clk;  				
+initial begin
+	clk = 1;
+end
+always #(cycle/2) clk = ~clk;
+
+// assign the output
+wire clk_out;
+assign #(delay_scale - $floor(delay_scale/cycle)*cycle) clk_out =  clk;
+
+
+endmodule
+

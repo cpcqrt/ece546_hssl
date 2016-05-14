@@ -1,0 +1,24 @@
+//Verilog-AMS HDL for "ECE546", "bit1_gen" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+`timescale 1ns/1fs
+
+module bit1_gen (Dout);
+
+
+output Dout;
+reg Dout;
+
+parameter real delay = 1; // 1ns delay
+parameter cycle = 0.05;	  // clock period (50ps = 0.05ns)
+
+initial begin
+	Dout = 0;
+	#(delay) Dout = 1;
+	#(cycle) Dout = 0;
+end
+
+
+
+endmodule

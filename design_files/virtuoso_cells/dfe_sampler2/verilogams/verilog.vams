@@ -1,0 +1,50 @@
+//Verilog-AMS HDL for "ece546", "dfe_sampler2" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module dfe_sampler2 (in, inbar, out, outbar, Dout, clk, rst);
+input in, inbar, clk, rst;
+output Dout, out, outbar;
+
+reg Dout;
+electrical in, inbar, out, outbar;
+wire clk, rst;
+
+parameter real tap1 = 0;
+parameter real tap2 = 0;
+parameter real tap3 = 0;
+parameter real tap4 = 0;
+parameter real tap5 = 0;
+
+reg[4:0] data_history;
+
+analog begin
+//	V(out)    <+ slew(V(in)   +tap1*(2*data_history[0]-1)+tap2*(2*data_history[1]-1)+tap3*(2*data_history[2]-1)+tap4*(2*data_history[3]-1)+tap5*(2*data_history[4]-1),1e11, 1e11);
+//	V(outbar) <+ slew(V(inbar)-tap1*(2*data_history[0]-1)-tap2*(2*data_history[1]-1)-tap3*(2*data_history[2]-1)-tap4*(2*data_history[3]-1)-tap5*(2*data_history[4]-1),1e11, 1e11);
+	V(out)    <+ slew(V(in)   -tap1/2*data_history[0]-tap2/2*data_history[1]-tap3/2*data_history[2]-tap4/2*data_history[3]-tap5/2*data_history[4],1e11);
+	V(outbar) <+ slew(V(inbar)+tap1/2*data_history[0]+tap2/2*data_history[1]+tap3/2*data_history[2]+tap4/2*data_history[3]+tap5/2*data_history[4],1e11);
+end 
+
+
+always@(negedge(clk)) begin
+	data_history[4:0] = {data_history[3:0],Dout};
+end
+
+always@(posedge(clk)) begin
+
+	if(rst == 1) begin
+		data_history <= 5'b00000;
+		Dout <= 1'b0;
+	end
+	else begin
+		if(V(out) - V(outbar) > 0.2)
+			Dout <= 1'b1;
+		else if (V(out) - V(outbar) < -0.2)
+			Dout <= 1'b0;
+// 		data_history[4:0] = {data_history[3:0],Dout};
+	end
+end
+
+endmodule
+
